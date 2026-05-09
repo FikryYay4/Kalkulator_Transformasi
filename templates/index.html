@@ -1,89 +1,178 @@
 {% extends "base.html" %}
-{% block title %}Beranda - KalkulatorPro{% endblock %}
+{% block title %}LOGICLAB - Cyber Calculator Terminal{% endblock %}
 
 {% block content %}
 <!-- Hero Section -->
 <section class="hero-section">
-    <h1 class="hero-title">Kalkulator Canggih</h1>
+    <div style="font-family: 'Share Tech Mono', monospace; color: var(--cyber-blue); font-size: 0.9rem; margin-bottom: 0.5rem; animation: fadeInUp 0.6s ease-out;">
+        > SYSTEM ONLINE // ACCESS GRANTED
+    </div>
+    <h1 class="hero-title">LOGICLAB</h1>
     <p class="hero-subtitle">
-        Aplikasi kalkulator multifungsi dengan operasi aritmatika, logika digital,
-        transformasi bilangan, dan penjelasan langkah demi langkah.
+        Terminal kalkulator cybersecurity dengan operasi aritmatika, logika digital,
+        transformasi bilangan multi-basis, dan circuit simulator. Dilengkapi scan animations,
+        sound effects, dan matrix rain effect.
     </p>
     <div class="d-flex justify-content-center gap-2 flex-wrap" style="animation: fadeInUp 0.8s ease-out 0.2s both;">
-        <span class="stat-badge"><i class="bi bi-lightning-fill text-warning"></i> 8 Operasi Aritmatika</span>
-        <span class="stat-badge"><i class="bi bi-cpu-fill text-info"></i> 6 Operator Logika</span>
-        <span class="stat-badge"><i class="bi bi-arrow-left-right text-success"></i> 3 Jenis Konversi</span>
+        <span class="stat-badge"><i class="bi bi-lightning-fill"></i> 8 Operasi Aritmatika</span>
+        <span class="stat-badge"><i class="bi bi-cpu-fill"></i> 6 Logic Gates</span>
+        <span class="stat-badge"><i class="bi bi-diagram-3"></i> Circuit Builder</span>
+        <span class="stat-badge"><i class="bi bi-hash"></i> Multi-Base Support</span>
+    </div>
+    <div style="margin-top: 1.5rem; animation: fadeInUp 0.8s ease-out 0.3s both;">
+        <div style="display: inline-block; padding: 0.5rem 1.5rem; background: rgba(0,255,135,0.1); border: 2px solid var(--cyber-green); border-radius: 8px; font-family: 'Orbitron', monospace; font-size: 0.85rem; color: var(--cyber-green); box-shadow: var(--glow-green);">
+            <i class="bi bi-shield-check-fill"></i> SECURE CONNECTION ESTABLISHED
+        </div>
     </div>
 </section>
 
 <!-- Feature Cards -->
 <section class="row g-4 mb-5">
     <div class="col-md-6 col-lg-4">
-        <a href="/aritmatika" class="feature-card" id="card-aritmatika">
+        <a href="/aritmatika" class="feature-card hologram" id="card-aritmatika">
             <div class="feature-icon aritmatika">
                 <i class="bi bi-plus-slash-minus"></i>
             </div>
-            <h5>Operasi Aritmatika</h5>
-            <p>Penjumlahan, pengurangan, perkalian, pembagian, pangkat, akar, modulus, dan floor division.</p>
+            <h5><i class="bi bi-chevron-right"></i> ARITHMETIC OPS</h5>
+            <p>Penjumlahan, pengurangan, perkalian, pembagian, pangkat, akar, modulus, floor division dengan langkah detail.</p>
         </a>
     </div>
     <div class="col-md-6 col-lg-4">
-        <a href="/logika" class="feature-card" id="card-logika">
+        <a href="/logika" class="feature-card hologram" id="card-logika">
             <div class="feature-icon logika">
-                <i class="bi bi-diagram-3-fill"></i>
+                <i class="bi bi-cpu-fill"></i>
             </div>
-            <h5>Operator Logika</h5>
-            <p>AND, OR, NOT, XOR, NAND, NOR — dengan visualisasi truth table dan penjelasan langkah.</p>
+            <h5><i class="bi bi-chevron-right"></i> LOGIC GATES</h5>
+            <p>AND, OR, NOT, XOR, NAND, NOR dengan truth tables, multi-base comparison, dan circuit simulator.</p>
         </a>
     </div>
     <div class="col-md-6 col-lg-4">
-        <a href="/konversi" class="feature-card" id="card-konversi-basis">
+        <a href="/konversi" class="feature-card hologram" id="card-konversi-basis">
             <div class="feature-icon konversi">
-                <i class="bi bi-arrow-left-right"></i>
+                <i class="bi bi-hash"></i>
             </div>
-            <h5>Konversi Basis Bilangan</h5>
-            <p>Konversi antara Desimal, Biner, Oktal, dan Heksadesimal secara dua arah.</p>
+            <h5><i class="bi bi-chevron-right"></i> NUMBER SYSTEMS</h5>
+            <p>Konversi Binary, Octal, Decimal, Hexadecimal dengan notasi matematis detail seperti (12356)₁₆ = (74582)₁₀.</p>
         </a>
     </div>
     <div class="col-md-6 col-lg-4">
-        <a href="/konversi#suhu" class="feature-card" id="card-konversi-suhu">
+        <a href="/konversi#suhu" class="feature-card hologram" id="card-konversi-suhu">
             <div class="feature-icon suhu">
                 <i class="bi bi-thermometer-half"></i>
             </div>
-            <h5>Konversi Suhu</h5>
-            <p>Celsius, Fahrenheit, Kelvin, dan Réaumur dengan rumus konversi lengkap.</p>
+            <h5><i class="bi bi-chevron-right"></i> TEMPERATURE</h5>
+            <p>Celsius, Fahrenheit, Kelvin, Réaumur dengan rumus konversi lengkap dan langkah perhitungan.</p>
         </a>
     </div>
     <div class="col-md-6 col-lg-4">
-        <a href="/konversi#mata-uang" class="feature-card" id="card-konversi-uang">
+        <a href="/konversi#mata-uang" class="feature-card hologram" id="card-konversi-uang">
             <div class="feature-icon mata-uang">
                 <i class="bi bi-currency-exchange"></i>
             </div>
-            <h5>Konversi Mata Uang</h5>
-            <p>IDR ke USD, EUR, SGD, dan MYR menggunakan kurs statis yang akurat.</p>
+            <h5><i class="bi bi-chevron-right"></i> CURRENCY</h5>
+            <p>IDR, USD, EUR, SGD, MYR dengan kurs statis untuk demonstrasi dan langkah konversi detail.</p>
         </a>
     </div>
     <div class="col-md-6 col-lg-4">
-        <a href="/bonus" class="feature-card" id="card-bonus">
+        <a href="/bonus" class="feature-card hologram" id="card-bonus">
             <div class="feature-icon bonus">
                 <i class="bi bi-stars"></i>
             </div>
-            <h5>Fitur Bonus</h5>
-            <p>Perhitungan Faktorial dan generator Deret Fibonacci dengan langkah detail.</p>
+            <h5><i class="bi bi-chevron-right"></i> BONUS FEATURES</h5>
+            <p>Faktorial (n!) dan Deret Fibonacci dengan visualisasi langkah perhitungan yang jelas.</p>
         </a>
     </div>
 </section>
 
-<!-- Recent History Preview -->
-<section class="calc-card mb-4" id="recentHistory">
-    <div class="mini-history-title">
-        <span><i class="bi bi-clock-history"></i> Riwayat Terakhir</span>
-        <a href="/riwayat" style="font-size:0.85rem; color: var(--primary); text-decoration:none;">Lihat Semua →</a>
+<!-- System Info & Recent History -->
+<div class="row g-4 mb-4">
+    <div class="col-lg-6">
+        <div class="calc-card" style="height: 100%;">
+            <h3 class="calc-card-title">
+                <i class="bi bi-info-circle-fill"></i> SYSTEM INFO
+            </h3>
+            <div style="font-family: 'Share Tech Mono', monospace; font-size: 0.9rem; line-height: 1.8;">
+                <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border-color);">
+                    <span style="color: var(--text-secondary);">VERSION:</span>
+                    <span style="color: var(--cyber-green); font-weight: 700;">2.0.0</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border-color);">
+                    <span style="color: var(--text-secondary);">STATUS:</span>
+                    <span style="color: var(--cyber-green); font-weight: 700;">
+                        <i class="bi bi-circle-fill" style="font-size: 0.5rem; animation: pulse-glow 2s infinite;"></i> ONLINE
+                    </span>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border-color);">
+                    <span style="color: var(--text-secondary);">FEATURES:</span>
+                    <span style="color: var(--cyber-blue); font-weight: 700;">18 MODULES</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border-color);">
+                    <span style="color: var(--text-secondary);">THEME:</span>
+                    <span style="color: var(--cyber-purple); font-weight: 700;">CYBERSECURITY</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding: 0.5rem 0;">
+                    <span style="color: var(--text-secondary);">SECURITY:</span>
+                    <span style="color: var(--cyber-green); font-weight: 700;">
+                        <i class="bi bi-shield-lock-fill"></i> ENCRYPTED
+                    </span>
+                </div>
+            </div>
+        </div>
     </div>
-    <div id="recentHistoryList">
-        <div class="empty-state" style="padding:1.5rem;">
-            <i class="bi bi-inbox" style="font-size:2rem;"></i>
-            <p class="mb-0 mt-2">Belum ada riwayat perhitungan.</p>
+    
+    <div class="col-lg-6">
+        <div class="calc-card" style="height: 100%;">
+            <div class="mini-history-title">
+                <span><i class="bi bi-clock-history"></i> RECENT OPERATIONS</span>
+                <a href="/riwayat" style="font-size:0.85rem; color: var(--cyber-green); text-decoration:none; font-family: 'Orbitron', monospace;">
+                    VIEW ALL <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+            <div id="recentHistoryList">
+                <div class="empty-state" style="padding:1.5rem;">
+                    <i class="bi bi-inbox" style="font-size:2rem;"></i>
+                    <p class="mb-0 mt-2">No operations yet. Start calculating!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Access Terminal -->
+<section class="calc-card mb-4">
+    <h3 class="calc-card-title">
+        <i class="bi bi-terminal-fill"></i> QUICK ACCESS TERMINAL
+    </h3>
+    <div class="row g-3">
+        <div class="col-md-4">
+            <a href="/aritmatika" style="display: block; padding: 1rem; background: rgba(0,255,135,0.05); border: 2px solid var(--matrix-border); border-radius: 8px; text-decoration: none; transition: all 0.3s ease;">
+                <div style="font-family: 'Orbitron', monospace; color: var(--cyber-green); font-weight: 700; margin-bottom: 0.3rem;">
+                    <i class="bi bi-calculator"></i> CALC
+                </div>
+                <div style="font-family: 'Rajdhani', sans-serif; color: var(--text-secondary); font-size: 0.85rem;">
+                    Basic arithmetic operations
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a href="/logika" style="display: block; padding: 1rem; background: rgba(0,217,255,0.05); border: 2px solid rgba(0,217,255,0.3); border-radius: 8px; text-decoration: none; transition: all 0.3s ease;">
+                <div style="font-family: 'Orbitron', monospace; color: var(--cyber-blue); font-weight: 700; margin-bottom: 0.3rem;">
+                    <i class="bi bi-cpu"></i> LOGIC
+                </div>
+                <div style="font-family: 'Rajdhani', sans-serif; color: var(--text-secondary); font-size: 0.85rem;">
+                    Digital logic simulator
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a href="/konversi" style="display: block; padding: 1rem; background: rgba(176,38,255,0.05); border: 2px solid rgba(176,38,255,0.3); border-radius: 8px; text-decoration: none; transition: all 0.3s ease;">
+                <div style="font-family: 'Orbitron', monospace; color: var(--cyber-purple); font-weight: 700; margin-bottom: 0.3rem;">
+                    <i class="bi bi-arrow-repeat"></i> CONVERT
+                </div>
+                <div style="font-family: 'Rajdhani', sans-serif; color: var(--text-secondary); font-size: 0.85rem;">
+                    Multi-system converter
+                </div>
+            </a>
         </div>
     </div>
 </section>
