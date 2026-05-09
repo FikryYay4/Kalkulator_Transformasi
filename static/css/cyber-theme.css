@@ -707,3 +707,196 @@
     0% { transform: translateY(-100%); }
     100% { transform: translateY(100%); }
 }
+
+
+/* ===== DARK MODE COMPLETE OVERRIDE ===== */
+
+/* Dark Mode Body */
+[data-theme="dark"] body {
+    background: #0a0e27 !important;
+    color: #00ff87 !important;
+}
+
+/* Dark Mode Navbar */
+[data-theme="dark"] .navbar-custom {
+    background: rgba(10, 14, 39, 0.98) !important;
+    border-bottom: 2px solid #00ff87 !important;
+    box-shadow: 0 0 20px rgba(0,255,135,0.3) !important;
+}
+
+[data-theme="dark"] .navbar-custom .navbar-brand {
+    color: #00ff87 !important;
+    text-shadow: 0 0 10px rgba(0,255,135,0.5) !important;
+    -webkit-text-fill-color: #00ff87 !important;
+}
+
+[data-theme="dark"] .navbar-custom .nav-link {
+    color: #8b9dc3 !important;
+}
+
+[data-theme="dark"] .navbar-custom .nav-link:hover,
+[data-theme="dark"] .navbar-custom .nav-link.active {
+    color: #00ff87 !important;
+    background: rgba(0,255,135,0.08) !important;
+}
+
+/* Dark Mode Cards */
+[data-theme="dark"] .feature-card,
+[data-theme="dark"] .calc-card {
+    background: rgba(15, 20, 25, 0.95) !important;
+    border: 2px solid rgba(0,255,135,0.3) !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.8) !important;
+}
+
+[data-theme="dark"] .feature-card:hover {
+    border-color: #00ff87 !important;
+    box-shadow: 0 0 30px rgba(0,255,135,0.5) !important;
+}
+
+[data-theme="dark"] .feature-card h5,
+[data-theme="dark"] .calc-card-title {
+    color: #00ff87 !important;
+    text-shadow: 0 0 10px rgba(0,255,135,0.5) !important;
+}
+
+[data-theme="dark"] .feature-card p {
+    color: #8b9dc3 !important;
+}
+
+/* Dark Mode Forms */
+[data-theme="dark"] .form-control-custom,
+[data-theme="dark"] .form-select-custom {
+    background: rgba(0, 0, 0, 0.7) !important;
+    border: 2px solid rgba(0,255,135,0.4) !important;
+    color: #00ff87 !important;
+}
+
+[data-theme="dark"] .form-control-custom:focus,
+[data-theme="dark"] .form-select-custom:focus {
+    border-color: #00ff87 !important;
+    box-shadow: 0 0 10px rgba(0,255,135,0.5) !important;
+    background: rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Dark Mode Buttons */
+[data-theme="dark"] .op-btn {
+    background: #000000 !important;
+    border: 2px solid rgba(0,255,135,0.4) !important;
+    color: #00ff87 !important;
+}
+
+[data-theme="dark"] .op-btn:hover {
+    border-color: #00ff87 !important;
+    box-shadow: 0 0 10px rgba(0,255,135,0.5) !important;
+}
+
+[data-theme="dark"] .op-btn.active {
+    background: #00ff87 !important;
+    color: #000000 !important;
+}
+
+[data-theme="dark"] .btn-calculate {
+    background: #000000 !important;
+    border: 3px solid #00ff87 !important;
+    color: #00ff87 !important;
+    box-shadow: 0 0 20px rgba(0,255,135,0.5) !important;
+}
+
+[data-theme="dark"] .btn-calculate:hover {
+    background: #00ff87 !important;
+    color: #000000 !important;
+}
+
+/* Dark Mode Results */
+[data-theme="dark"] .result-section {
+    background: rgba(0, 0, 0, 0.8) !important;
+    border: 2px solid #00ff87 !important;
+    box-shadow: 0 0 20px rgba(0,255,135,0.3) !important;
+}
+
+[data-theme="dark"] .result-value {
+    color: #00ff87 !important;
+    text-shadow: 0 0 10px rgba(0,255,135,0.5) !important;
+    -webkit-text-fill-color: #00ff87 !important;
+}
+
+[data-theme="dark"] .result-formula {
+    color: #8b9dc3 !important;
+}
+
+[data-theme="dark"] .result-formula code {
+    background: rgba(0,255,135,0.12) !important;
+    color: #00ff87 !important;
+}
+
+/* Dark Mode Steps */
+[data-theme="dark"] .step-number {
+    background: #000000 !important;
+    border: 2px solid #00ff87 !important;
+    color: #00ff87 !important;
+    box-shadow: 0 0 10px rgba(0,255,135,0.5) !important;
+}
+
+[data-theme="dark"] .step-content {
+    background: rgba(0,0,0,0.6) !important;
+    border: 1px solid rgba(0,255,135,0.3) !important;
+    color: #8b9dc3 !important;
+}
+
+/* Dark Mode Math Notation */
+[data-theme="dark"] .math-notation {
+    background: #000000 !important;
+    border: 2px solid rgba(0,255,135,0.3) !important;
+    color: #00ff87 !important;
+}
+
+/* Dark Mode Tabs */
+[data-theme="dark"] .tab-nav {
+    background: #000000 !important;
+    border: 2px solid rgba(0,255,135,0.3) !important;
+}
+
+[data-theme="dark"] .tab-btn.active {
+    background: #00ff87 !important;
+    color: #000000 !important;
+}
+
+/* Dark Mode History */
+[data-theme="dark"] .history-item {
+    background: rgba(15, 20, 25, 0.95) !important;
+    border: 2px solid rgba(0,255,135,0.3) !important;
+}
+
+[data-theme="dark"] .history-formula {
+    color: #00ff87 !important;
+}
+
+[data-theme="dark"] .history-result {
+    color: #00d9ff !important;
+}
+
+/* Dark Mode Theme Toggle */
+[data-theme="dark"] .theme-toggle {
+    background: #000000 !important;
+    border: 2px solid #00ff87 !important;
+    color: #00ff87 !important;
+    box-shadow: 0 0 10px rgba(0,255,135,0.5) !important;
+}
+
+/* Dark Mode Hero */
+[data-theme="dark"] .hero-title {
+    color: #00ff87 !important;
+    text-shadow: 0 0 10px rgba(0,255,135,0.5) !important;
+    -webkit-text-fill-color: #00ff87 !important;
+}
+
+[data-theme="dark"] .hero-subtitle {
+    color: #8b9dc3 !important;
+}
+
+/* Dark Mode Feature Icons */
+[data-theme="dark"] .feature-icon {
+    background: #000000 !important;
+    border: 2px solid #00ff87 !important;
+    box-shadow: 0 0 10px rgba(0,255,135,0.5) !important;
+}
