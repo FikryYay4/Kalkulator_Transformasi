@@ -39,30 +39,35 @@
 }
 
 [data-theme="dark"] {
-    --bg-body: var(--matrix-bg);
-    --bg-card: var(--matrix-card);
-    --bg-card-solid: #0f1419;
-    --bg-navbar: rgba(10, 14, 39, 0.98);
-    --bg-input: rgba(0, 0, 0, 0.6);
-    --bg-result: linear-gradient(135deg, rgba(0,255,135,0.05), rgba(0,217,255,0.05));
+    --bg-body: var(--matrix-bg) !important;
+    --bg-card: var(--matrix-card) !important;
+    --bg-card-solid: #0f1419 !important;
+    --bg-navbar: rgba(10, 14, 39, 0.98) !important;
+    --bg-input: rgba(0, 0, 0, 0.6) !important;
+    --bg-result: linear-gradient(135deg, rgba(0,255,135,0.05), rgba(0,217,255,0.05)) !important;
     
-    --text-primary: var(--cyber-green);
-    --text-secondary: #8b9dc3;
-    --text-muted: #4a5568;
+    --text-primary: var(--cyber-green) !important;
+    --text-secondary: #8b9dc3 !important;
+    --text-muted: #4a5568 !important;
     
-    --border-color: var(--matrix-border);
-    --border-input: rgba(0,255,135,0.4);
+    --border-color: var(--matrix-border) !important;
+    --border-input: rgba(0,255,135,0.4) !important;
     
-    --primary: var(--cyber-green);
-    --primary-dark: var(--cyber-green-dark);
-    --secondary: var(--cyber-blue);
-    --accent: var(--cyber-purple);
-    --danger: var(--cyber-red);
-    --warning: var(--cyber-yellow);
+    --primary: var(--cyber-green) !important;
+    --primary-dark: var(--cyber-green-dark) !important;
+    --secondary: var(--cyber-blue) !important;
+    --accent: var(--cyber-purple) !important;
+    --danger: var(--cyber-red) !important;
+    --warning: var(--cyber-yellow) !important;
 }
 
-/* ===== MATRIX RAIN BACKGROUND ===== */
-body[data-theme="dark"]::before {
+/* Dark Mode Body Background */
+[data-theme="dark"] body {
+    background: var(--matrix-bg) !important;
+}
+
+/* ===== DARK MODE SCANLINES ===== */
+[data-theme="dark"] body::before {
     content: '';
     position: fixed;
     top: 0; left: 0;
@@ -83,26 +88,6 @@ body[data-theme="dark"]::before {
 @keyframes scanlines {
     0% { transform: translateY(0); }
     100% { transform: translateY(20px); }
-}
-
-/* Matrix falling code effect */
-body[data-theme="dark"]::after {
-    content: '';
-    position: fixed;
-    top: -100%; left: 0;
-    width: 100%; height: 200%;
-    background-image: 
-        radial-gradient(circle at 20% 50%, rgba(0,255,135,0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(0,217,255,0.1) 0%, transparent 50%),
-        radial-gradient(circle at 40% 20%, rgba(176,38,255,0.1) 0%, transparent 50%);
-    pointer-events: none;
-    z-index: 0;
-    animation: matrixRain 20s linear infinite;
-}
-
-@keyframes matrixRain {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(50%); }
 }
 
 /* ===== CYBER GRID ===== */

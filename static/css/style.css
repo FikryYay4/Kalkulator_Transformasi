@@ -84,65 +84,9 @@ body {
     position: relative;
 }
 
-/* Light Mode - Animated gradient background */
-body:not([data-theme="dark"]) {
-    background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #4facfe);
-    background-size: 400% 400%;
-    animation: gradientShift 15s ease infinite;
-}
-
-@keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-/* Light Mode - Floating shapes */
-body:not([data-theme="dark"])::before,
-body:not([data-theme="dark"])::after {
-    content: '';
-    position: fixed;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.3;
-    z-index: -1;
-    pointer-events: none;
-    animation: floatOrb 18s ease-in-out infinite alternate;
-}
-body:not([data-theme="dark"])::before {
-    width: 500px; height: 500px;
-    background: radial-gradient(circle, rgba(255,255,255,0.8), transparent);
-    top: -100px; left: -100px;
-}
-body:not([data-theme="dark"])::after {
-    width: 400px; height: 400px;
-    background: radial-gradient(circle, rgba(255,255,255,0.6), transparent);
-    bottom: -80px; right: -80px;
-    animation-delay: -9s;
-}
-
-/* Dark Mode - Animated background orbs */
-[data-theme="dark"] body::before,
-[data-theme="dark"] body::after {
-    content: '';
-    position: fixed;
-    border-radius: 50%;
-    filter: blur(100px);
-    opacity: 0.15;
-    z-index: -1;
-    pointer-events: none;
-    animation: floatOrb 18s ease-in-out infinite alternate;
-}
-[data-theme="dark"] body::before {
-    width: 600px; height: 600px;
-    background: conic-gradient(var(--primary), var(--secondary), var(--accent), var(--primary));
-    top: -150px; left: -150px;
-}
-[data-theme="dark"] body::after {
-    width: 500px; height: 500px;
-    background: conic-gradient(var(--accent), var(--info), var(--success), var(--accent));
-    bottom: -100px; right: -100px;
-    animation-delay: -9s;
+/* Base body - no background here */
+body {
+    position: relative;
 }
 
 @keyframes floatOrb {
