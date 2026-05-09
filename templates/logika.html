@@ -76,7 +76,15 @@
                     <div class="result-value" id="resultGateValue"></div>
                     <div class="result-formula" id="resultGateFormula"></div>
                     
-                    <div class="steps-title">
+                    <!-- Gate Visualization -->
+                    <div class="mt-4" id="gateVisualization">
+                        <div class="steps-title">
+                            <i class="bi bi-diagram-2-fill"></i> GATE DIAGRAM
+                        </div>
+                        <div id="gateDiagram" style="display: flex; justify-content: center; padding: 1rem; background: var(--bg-input); border-radius: 8px; border: 2px solid var(--border-color);"></div>
+                    </div>
+                    
+                    <div class="steps-title mt-4">
                         <i class="bi bi-list-ol"></i> EXECUTION LOG
                     </div>
                     <div id="resultGateSteps"></div>
@@ -192,7 +200,15 @@
                     <div class="result-value" id="resultCircuitValue"></div>
                     <div class="result-formula" id="resultCircuitFormula"></div>
                     
-                    <div class="steps-title">
+                    <!-- Circuit Visualization -->
+                    <div class="mt-4" id="circuitVisualization">
+                        <div class="steps-title">
+                            <i class="bi bi-diagram-3-fill"></i> CIRCUIT DIAGRAM
+                        </div>
+                        <div id="circuitDiagram" style="padding: 1rem; background: var(--bg-input); border-radius: 8px; border: 2px solid var(--border-color); overflow-x: auto;"></div>
+                    </div>
+                    
+                    <div class="steps-title mt-4">
                         <i class="bi bi-list-ol"></i> EXECUTION LOG
                     </div>
                     <div id="resultCircuitSteps"></div>
@@ -300,6 +316,15 @@ document.getElementById('btnCalculateGate').addEventListener('click', async func
             </div>
         `).join('');
         document.getElementById('resultGateSteps').innerHTML = stepsHtml;
+        
+        // Generate gate visualization
+        const gateSVG = window.logicGateVisualizer.generateGateSVG(
+            selectedGate,
+            input1,
+            input2,
+            data.result
+        );
+        document.getElementById('gateDiagram').innerHTML = gateSVG;
         
         // Generate truth table
         generateTruthTable(selectedGate);
@@ -515,6 +540,10 @@ document.getElementById('btnEvaluateCircuit').addEventListener('click', async fu
             </div>
         `).join('');
         document.getElementById('resultCircuitSteps').innerHTML = stepsHtml;
+        
+        // Generate circuit visualization
+        const circuitSVG = window.logicGateVisualizer.generateCircuitSVG(gates);
+        document.getElementById('circuitDiagram').innerHTML = circuitSVG;
         
         resultEl.classList.add('show');
         scrollToResult();

@@ -3,6 +3,7 @@
 
 /* ===== CSS VARIABLES ===== */
 :root {
+    /* Light Mode - Vibrant & Modern */
     --primary: #6366f1;
     --primary-dark: #4f46e5;
     --secondary: #8b5cf6;
@@ -18,24 +19,26 @@
     --gradient-warm: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
     --gradient-cool: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
     --gradient-neon: linear-gradient(135deg, #00ff87 0%, #60efff 100%);
+    --gradient-rainbow: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
 
-    --bg-body: #f0f2f5;
-    --bg-card: rgba(255,255,255,0.85);
+    /* Light Mode Backgrounds - More Vibrant */
+    --bg-body: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --bg-card: rgba(255,255,255,0.95);
     --bg-card-solid: #ffffff;
-    --bg-navbar: rgba(255,255,255,0.85);
+    --bg-navbar: rgba(255,255,255,0.95);
     --bg-input: #f8f9fa;
-    --bg-result: linear-gradient(135deg, rgba(102,126,234,0.08), rgba(118,75,162,0.08));
+    --bg-result: linear-gradient(135deg, rgba(102,126,234,0.12), rgba(118,75,162,0.12));
 
     --text-primary: #1a1a2e;
     --text-secondary: #6b7280;
     --text-muted: #9ca3af;
 
-    --border-color: rgba(0,0,0,0.08);
-    --border-input: #dee2e6;
+    --border-color: rgba(102,102,241,0.15);
+    --border-input: #e0e7ff;
 
-    --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
-    --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
-    --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+    --shadow-sm: 0 2px 8px rgba(102,102,241,0.1);
+    --shadow-md: 0 4px 16px rgba(102,102,241,0.15);
+    --shadow-lg: 0 8px 32px rgba(102,102,241,0.2);
     --shadow-glow: 0 0 25px rgba(99,102,241,0.4);
     --shadow-neon: 0 0 30px rgba(139,92,246,0.3), 0 0 60px rgba(139,92,246,0.1);
 
@@ -78,10 +81,49 @@ body {
     transition: background var(--transition), color var(--transition);
     min-height: 100vh;
     overflow-x: hidden;
+    position: relative;
 }
 
-/* Animated background orbs */
-body::before, body::after {
+/* Light Mode - Animated gradient background */
+body:not([data-theme="dark"]) {
+    background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #4facfe);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Light Mode - Floating shapes */
+body:not([data-theme="dark"])::before,
+body:not([data-theme="dark"])::after {
+    content: '';
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.3;
+    z-index: -1;
+    pointer-events: none;
+    animation: floatOrb 18s ease-in-out infinite alternate;
+}
+body:not([data-theme="dark"])::before {
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(255,255,255,0.8), transparent);
+    top: -100px; left: -100px;
+}
+body:not([data-theme="dark"])::after {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(255,255,255,0.6), transparent);
+    bottom: -80px; right: -80px;
+    animation-delay: -9s;
+}
+
+/* Dark Mode - Animated background orbs */
+[data-theme="dark"] body::before,
+[data-theme="dark"] body::after {
     content: '';
     position: fixed;
     border-radius: 50%;
@@ -91,12 +133,12 @@ body::before, body::after {
     pointer-events: none;
     animation: floatOrb 18s ease-in-out infinite alternate;
 }
-body::before {
+[data-theme="dark"] body::before {
     width: 600px; height: 600px;
     background: conic-gradient(var(--primary), var(--secondary), var(--accent), var(--primary));
     top: -150px; left: -150px;
 }
-body::after {
+[data-theme="dark"] body::after {
     width: 500px; height: 500px;
     background: conic-gradient(var(--accent), var(--info), var(--success), var(--accent));
     bottom: -100px; right: -100px;

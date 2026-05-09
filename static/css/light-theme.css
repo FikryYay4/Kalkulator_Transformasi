@@ -1,0 +1,263 @@
+/* ===== LIGHT MODE ENHANCEMENTS ===== */
+
+/* Light Mode Specific Styles */
+body:not([data-theme="dark"]) {
+    /* Enhanced card styles */
+}
+
+body:not([data-theme="dark"]) .navbar-custom {
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 2px solid rgba(102,102,241,0.2);
+    box-shadow: 0 4px 20px rgba(102,102,241,0.15);
+}
+
+body:not([data-theme="dark"]) .navbar-custom .navbar-brand {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 900;
+    text-shadow: none;
+}
+
+body:not([data-theme="dark"]) .navbar-custom .nav-link {
+    color: #4b5563;
+    font-weight: 600;
+}
+
+body:not([data-theme="dark"]) .navbar-custom .nav-link:hover,
+body:not([data-theme="dark"]) .navbar-custom .nav-link.active {
+    color: var(--primary);
+    background: rgba(99,102,241,0.1);
+}
+
+/* Hero Section */
+body:not([data-theme="dark"]) .hero-title {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 4px 20px rgba(99,102,241,0.3);
+}
+
+body:not([data-theme="dark"]) .hero-subtitle {
+    color: rgba(255,255,255,0.95);
+    text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+/* Feature Cards - Glassmorphism */
+body:not([data-theme="dark"]) .feature-card {
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 2px solid rgba(255,255,255,0.5);
+    box-shadow: 0 8px 32px rgba(102,102,241,0.2);
+}
+
+body:not([data-theme="dark"]) .feature-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 40px rgba(102,102,241,0.3);
+    border-color: rgba(99,102,241,0.5);
+}
+
+body:not([data-theme="dark"]) .feature-icon {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* Calculator Cards */
+body:not([data-theme="dark"]) .calc-card {
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 2px solid rgba(255,255,255,0.5);
+    box-shadow: 0 8px 32px rgba(102,102,241,0.2);
+}
+
+body:not([data-theme="dark"]) .calc-card::before {
+    background: var(--gradient-primary);
+    opacity: 1;
+}
+
+body:not([data-theme="dark"]) .calc-card-title {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Form Controls */
+body:not([data-theme="dark"]) .form-control-custom,
+body:not([data-theme="dark"]) .form-select-custom {
+    background: rgba(255,255,255,0.9);
+    border: 2px solid rgba(99,102,241,0.2);
+    color: var(--text-primary);
+}
+
+body:not([data-theme="dark"]) .form-control-custom:focus,
+body:not([data-theme="dark"]) .form-select-custom:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(99,102,241,0.15);
+    background: #ffffff;
+}
+
+/* Operation Buttons */
+body:not([data-theme="dark"]) .op-btn {
+    background: rgba(255,255,255,0.9);
+    border: 2px solid rgba(99,102,241,0.2);
+    color: var(--primary);
+}
+
+body:not([data-theme="dark"]) .op-btn:hover {
+    background: rgba(99,102,241,0.1);
+    border-color: var(--primary);
+}
+
+body:not([data-theme="dark"]) .op-btn.active {
+    background: var(--gradient-primary);
+    color: #ffffff;
+    border-color: transparent;
+}
+
+/* Calculate Button */
+body:not([data-theme="dark"]) .btn-calculate {
+    background: var(--gradient-primary);
+    box-shadow: 0 4px 20px rgba(99,102,241,0.4);
+}
+
+body:not([data-theme="dark"]) .btn-calculate:hover {
+    box-shadow: 0 6px 30px rgba(99,102,241,0.5);
+}
+
+/* Result Section */
+body:not([data-theme="dark"]) .result-section {
+    background: rgba(255,255,255,0.9);
+    border: 2px solid rgba(99,102,241,0.2);
+    box-shadow: 0 4px 20px rgba(102,102,241,0.15);
+}
+
+body:not([data-theme="dark"]) .result-value {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+body:not([data-theme="dark"]) .result-formula code {
+    background: rgba(99,102,241,0.1);
+    color: var(--primary);
+}
+
+/* Steps */
+body:not([data-theme="dark"]) .step-number {
+    background: var(--gradient-primary);
+    box-shadow: 0 2px 10px rgba(99,102,241,0.3);
+}
+
+body:not([data-theme="dark"]) .step-content {
+    background: rgba(255,255,255,0.9);
+    border: 1px solid rgba(99,102,241,0.15);
+}
+
+/* Math Notation */
+body:not([data-theme="dark"]) .math-notation {
+    background: rgba(255,255,255,0.9);
+    border: 2px solid rgba(99,102,241,0.15);
+}
+
+/* Tabs */
+body:not([data-theme="dark"]) .tab-nav {
+    background: rgba(255,255,255,0.9);
+    border: 2px solid rgba(99,102,241,0.15);
+}
+
+body:not([data-theme="dark"]) .tab-btn.active {
+    background: var(--gradient-primary);
+    color: #ffffff;
+}
+
+/* History */
+body:not([data-theme="dark"]) .history-item {
+    background: rgba(255,255,255,0.95);
+    border: 2px solid rgba(255,255,255,0.5);
+    box-shadow: 0 4px 15px rgba(102,102,241,0.15);
+}
+
+body:not([data-theme="dark"]) .history-item:hover {
+    box-shadow: 0 6px 25px rgba(102,102,241,0.25);
+}
+
+/* Theme Toggle */
+body:not([data-theme="dark"]) .theme-toggle {
+    background: rgba(255,255,255,0.9);
+    border: 2px solid rgba(99,102,241,0.3);
+    color: var(--primary);
+}
+
+body:not([data-theme="dark"]) .theme-toggle:hover {
+    border-color: var(--primary);
+    box-shadow: 0 0 20px rgba(99,102,241,0.4);
+}
+
+/* Stat Badges */
+body:not([data-theme="dark"]) .stat-badge {
+    background: rgba(255,255,255,0.9);
+    border: 2px solid rgba(255,255,255,0.5);
+    box-shadow: 0 2px 10px rgba(102,102,241,0.15);
+}
+
+/* Footer */
+body:not([data-theme="dark"]) .footer {
+    color: rgba(255,255,255,0.9);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    border-top: 1px solid rgba(255,255,255,0.3);
+}
+
+/* Scrollbar Light Mode */
+body:not([data-theme="dark"])::-webkit-scrollbar {
+    width: 10px;
+    background: rgba(255,255,255,0.5);
+}
+
+body:not([data-theme="dark"])::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.3);
+}
+
+body:not([data-theme="dark"])::-webkit-scrollbar-thumb {
+    background: var(--gradient-primary);
+    border-radius: 5px;
+}
+
+body:not([data-theme="dark"])::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-dark);
+}
+
+/* Error Message */
+body:not([data-theme="dark"]) .error-message {
+    background: rgba(239,68,68,0.1);
+    border: 2px solid rgba(239,68,68,0.3);
+}
+
+/* Circuit Builder */
+body:not([data-theme="dark"]) .circuit-row {
+    background: rgba(255,255,255,0.9);
+    border: 2px solid rgba(99,102,241,0.15);
+}
+
+body:not([data-theme="dark"]) .btn-add-gate {
+    background: rgba(99,102,241,0.1);
+    border: 2px dashed rgba(99,102,241,0.4);
+    color: var(--primary);
+}
+
+body:not([data-theme="dark"]) .btn-add-gate:hover {
+    background: rgba(99,102,241,0.2);
+}
+
+/* Preloader Light Mode */
+body:not([data-theme="dark"]) .preloader {
+    background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #4facfe);
+}
+
+body:not([data-theme="dark"]) .preloader-text {
+    color: #ffffff;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
