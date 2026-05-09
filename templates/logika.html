@@ -1,0 +1,581 @@
+{% extends "base.html" %}
+
+{% block title %}Operasi Logika - LogicLab{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <a href="/" class="btn-back">
+        <i class="bi bi-arrow-left"></i> Kembali
+    </a>
+    <h1><i class="bi bi-diagram-3-fill"></i> LOGIC OPERATIONS</h1>
+    <p>Gerbang logika digital, perbandingan multi-basis, dan circuit simulator</p>
+</div>
+
+<div class="row g-4">
+    <!-- Main Calculator -->
+    <div class="col-lg-8">
+        <!-- Tab Navigation -->
+        <div class="tab-nav">
+            <button class="tab-btn active" data-tab="gates">
+                <i class="bi bi-cpu-fill"></i> Logic Gates
+            </button>
+            <button class="tab-btn" data-tab="compare">
+                <i class="bi bi-arrows-angle-expand"></i> Compare
+            </button>
+            <button class="tab-btn" data-tab="circuit">
+                <i class="bi bi-diagram-3"></i> Circuit Builder
+            </button>
+        </div>
+
+        <!-- Tab 1: Logic Gates -->
+        <div class="tab-content active" id="tab-gates">
+            <div class="calc-card">
+                <h3 class="calc-card-title">
+                    <i class="bi bi-cpu-fill"></i> GERBANG LOGIKA
+                </h3>
+
+                <div class="mb-3">
+                    <label class="form-label-custom">PILIH GERBANG</label>
+                    <div class="op-grid" style="grid-template-columns: repeat(3, 1fr);">
+                        <button class="op-btn gate-btn active" data-gate="AND">AND</button>
+                        <button class="op-btn gate-btn" data-gate="OR">OR</button>
+                        <button class="op-btn gate-btn" data-gate="NOT">NOT</button>
+                        <button class="op-btn gate-btn" data-gate="XOR">XOR</button>
+                        <button class="op-btn gate-btn" data-gate="NAND">NAND</button>
+                        <button class="op-btn gate-btn" data-gate="NOR">NOR</button>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label-custom">INPUT 1</label>
+                        <select class="form-select-custom" id="gateInput1">
+                            <option value="0">0 (FALSE)</option>
+                            <option value="1">1 (TRUE)</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6" id="input2Container">
+                        <label class="form-label-custom">INPUT 2</label>
+                        <select class="form-select-custom" id="gateInput2">
+                            <option value="0">0 (FALSE)</option>
+                            <option value="1">1 (TRUE)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button class="btn-calculate mt-4" id="btnCalculateGate">
+                    <i class="bi bi-lightning-charge-fill"></i> EXECUTE
+                </button>
+
+                <div class="error-message mt-3" id="errorGate">
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+                    <span id="errorGateText"></span>
+                </div>
+
+                <div class="result-section" id="resultGate">
+                    <div class="result-value" id="resultGateValue"></div>
+                    <div class="result-formula" id="resultGateFormula"></div>
+                    
+                    <div class="steps-title">
+                        <i class="bi bi-list-ol"></i> EXECUTION LOG
+                    </div>
+                    <div id="resultGateSteps"></div>
+
+                    <!-- Truth Table -->
+                    <div class="mt-4" id="truthTableContainer">
+                        <div class="steps-title">
+                            <i class="bi bi-table"></i> TRUTH TABLE
+                        </div>
+                        <div class="math-notation" id="truthTable"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 2: Compare Numbers -->
+        <div class="tab-content" id="tab-compare">
+            <div class="calc-card">
+                <h3 class="calc-card-title">
+                    <i class="bi bi-arrows-angle-expand"></i> PERBANDINGAN MULTI-BASIS
+                </h3>
+
+                <div class="row g-3">
+                    <div class="col-md-5">
+                        <label class="form-label-custom">ANGKA 1</label>
+                        <input type="text" class="form-control-custom" id="compareNum1" placeholder="Contoh: 1010">
+                        <label class="form-label-custom mt-2">BASIS 1</label>
+                        <select class="form-select-custom" id="compareBase1">
+                            <option value="2">Binary (2)</option>
+                            <option value="8">Octal (8)</option>
+                            <option value="10" selected>Decimal (10)</option>
+                            <option value="16">Hexadecimal (16)</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-2 d-flex align-items-center justify-content-center">
+                        <div>
+                            <label class="form-label-custom">OPERATOR</label>
+                            <select class="form-select-custom" id="compareOp">
+                                <option value=">">&gt;</option>
+                                <option value="<">&lt;</option>
+                                <option value=">=">&gt;=</option>
+                                <option value="<=">&lt;=</option>
+                                <option value="==">==</option>
+                                <option value="!=">!=</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-5">
+                        <label class="form-label-custom">ANGKA 2</label>
+                        <input type="text" class="form-control-custom" id="compareNum2" placeholder="Contoh: A">
+                        <label class="form-label-custom mt-2">BASIS 2</label>
+                        <select class="form-select-custom" id="compareBase2">
+                            <option value="2">Binary (2)</option>
+                            <option value="8">Octal (8)</option>
+                            <option value="10" selected>Decimal (10)</option>
+                            <option value="16">Hexadecimal (16)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button class="btn-calculate mt-4" id="btnCompare">
+                    <i class="bi bi-lightning-charge-fill"></i> COMPARE
+                </button>
+
+                <div class="error-message mt-3" id="errorCompare">
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+                    <span id="errorCompareText"></span>
+                </div>
+
+                <div class="result-section" id="resultCompare">
+                    <div class="result-value" id="resultCompareValue"></div>
+                    <div class="result-formula" id="resultCompareFormula"></div>
+                    
+                    <div class="steps-title">
+                        <i class="bi bi-list-ol"></i> EXECUTION LOG
+                    </div>
+                    <div id="resultCompareSteps"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 3: Circuit Builder -->
+        <div class="tab-content" id="tab-circuit">
+            <div class="calc-card">
+                <h3 class="calc-card-title">
+                    <i class="bi bi-diagram-3"></i> CIRCUIT SIMULATOR
+                </h3>
+
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.5rem;">
+                    Bangun rangkaian gerbang logika. Output dari gerbang sebelumnya dapat digunakan sebagai input (G1, G2, dst).
+                </p>
+
+                <div id="circuitGates">
+                    <!-- Gates will be added here dynamically -->
+                </div>
+
+                <button class="btn-add-gate" id="btnAddGate">
+                    <i class="bi bi-plus-circle-fill"></i> TAMBAH GERBANG
+                </button>
+
+                <button class="btn-calculate" id="btnEvaluateCircuit">
+                    <i class="bi bi-lightning-charge-fill"></i> EVALUATE CIRCUIT
+                </button>
+
+                <div class="error-message mt-3" id="errorCircuit">
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+                    <span id="errorCircuitText"></span>
+                </div>
+
+                <div class="result-section" id="resultCircuit">
+                    <div class="result-value" id="resultCircuitValue"></div>
+                    <div class="result-formula" id="resultCircuitFormula"></div>
+                    
+                    <div class="steps-title">
+                        <i class="bi bi-list-ol"></i> EXECUTION LOG
+                    </div>
+                    <div id="resultCircuitSteps"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar: Mini History -->
+    <div class="col-lg-4">
+        <div class="calc-card">
+            <div class="mini-history-title">
+                <span><i class="bi bi-clock-history"></i> RECENT OPERATIONS</span>
+                <button class="btn btn-sm" onclick="clearCategoryHistory('logika')" style="background: rgba(255,0,85,0.1); color: var(--cyber-red); border: 1px solid var(--cyber-red); font-size: 0.7rem; padding: 0.2rem 0.6rem; border-radius: 4px;">
+                    CLEAR
+                </button>
+            </div>
+            <div id="miniHistory" style="max-height: 600px; overflow-y: auto;">
+                <div class="empty-state">
+                    <i class="bi bi-inbox"></i>
+                    <p>Belum ada operasi</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// ===== TAB SWITCHING =====
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const tabId = this.dataset.tab;
+        
+        // Update buttons
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Update content
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        document.getElementById('tab-' + tabId).classList.add('active');
+        
+        if (window.cyberSound) window.cyberSound.click();
+    });
+});
+
+// ===== LOGIC GATES =====
+let selectedGate = 'AND';
+
+document.querySelectorAll('.gate-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        document.querySelectorAll('.gate-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        selectedGate = this.dataset.gate;
+        
+        // Hide input2 for NOT gate
+        const input2Container = document.getElementById('input2Container');
+        if (selectedGate === 'NOT') {
+            input2Container.style.display = 'none';
+        } else {
+            input2Container.style.display = 'block';
+        }
+    });
+});
+
+document.getElementById('btnCalculateGate').addEventListener('click', async function() {
+    const input1 = document.getElementById('gateInput1').value;
+    const input2 = document.getElementById('gateInput2').value;
+    
+    const errorEl = document.getElementById('errorGate');
+    const resultEl = document.getElementById('resultGate');
+    
+    errorEl.classList.remove('show');
+    resultEl.classList.remove('show');
+    
+    try {
+        if (window.cyberSound) window.cyberSound.processing();
+        
+        const response = await fetch('/api/logika/gate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                gate: selectedGate,
+                input1: input1,
+                input2: input2
+            })
+        });
+        
+        const data = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(data.error || 'Terjadi kesalahan');
+        }
+        
+        // Display result
+        document.getElementById('resultGateValue').textContent = data.result === 1 ? '1 (TRUE)' : '0 (FALSE)';
+        document.getElementById('resultGateFormula').innerHTML = `<code>${data.formula}</code>`;
+        
+        // Display steps
+        const stepsHtml = data.steps.map((step, i) => `
+            <div class="step-item">
+                <div class="step-number">${i + 1}</div>
+                <div class="step-content">${step}</div>
+            </div>
+        `).join('');
+        document.getElementById('resultGateSteps').innerHTML = stepsHtml;
+        
+        // Generate truth table
+        generateTruthTable(selectedGate);
+        
+        resultEl.classList.add('show');
+        scrollToResult();
+        
+        if (window.cyberSound) window.cyberSound.success();
+        
+        // Save to history
+        saveHistory('logika', data.formula, data.result === 1 ? 'TRUE' : 'FALSE', data.steps);
+        renderMiniHistory();
+        
+    } catch (error) {
+        document.getElementById('errorGateText').textContent = error.message;
+        errorEl.classList.add('show');
+        if (window.cyberSound) window.cyberSound.error();
+    }
+});
+
+function generateTruthTable(gate) {
+    const tables = {
+        'AND': `A | B | A AND B
+0 | 0 |    0
+0 | 1 |    0
+1 | 0 |    0
+1 | 1 |    1`,
+        'OR': `A | B | A OR B
+0 | 0 |   0
+0 | 1 |   1
+1 | 0 |   1
+1 | 1 |   1`,
+        'NOT': `A | NOT A
+0 |   1
+1 |   0`,
+        'XOR': `A | B | A XOR B
+0 | 0 |    0
+0 | 1 |    1
+1 | 0 |    1
+1 | 1 |    0`,
+        'NAND': `A | B | A NAND B
+0 | 0 |    1
+0 | 1 |    1
+1 | 0 |    1
+1 | 1 |    0`,
+        'NOR': `A | B | A NOR B
+0 | 0 |    1
+0 | 1 |    0
+1 | 0 |    0
+1 | 1 |    0`
+    };
+    
+    document.getElementById('truthTable').textContent = tables[gate] || '';
+}
+
+// ===== COMPARE NUMBERS =====
+document.getElementById('btnCompare').addEventListener('click', async function() {
+    const num1 = document.getElementById('compareNum1').value.trim();
+    const base1 = document.getElementById('compareBase1').value;
+    const num2 = document.getElementById('compareNum2').value.trim();
+    const base2 = document.getElementById('compareBase2').value;
+    const operator = document.getElementById('compareOp').value;
+    
+    const errorEl = document.getElementById('errorCompare');
+    const resultEl = document.getElementById('resultCompare');
+    
+    errorEl.classList.remove('show');
+    resultEl.classList.remove('show');
+    
+    if (!num1 || !num2) {
+        document.getElementById('errorCompareText').textContent = 'Masukkan kedua angka!';
+        errorEl.classList.add('show');
+        if (window.cyberSound) window.cyberSound.error();
+        return;
+    }
+    
+    try {
+        if (window.cyberSound) window.cyberSound.processing();
+        
+        const response = await fetch('/api/logika/compare', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                num1: num1,
+                base1: parseInt(base1),
+                num2: num2,
+                base2: parseInt(base2),
+                operator: operator
+            })
+        });
+        
+        const data = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(data.error || 'Terjadi kesalahan');
+        }
+        
+        // Display result
+        document.getElementById('resultCompareValue').textContent = data.result ? 'TRUE ✓' : 'FALSE ✗';
+        document.getElementById('resultCompareFormula').innerHTML = `<code>${data.formula}</code>`;
+        
+        // Display steps
+        const stepsHtml = data.steps.map((step, i) => `
+            <div class="step-item">
+                <div class="step-number">${i + 1}</div>
+                <div class="step-content">${step}</div>
+            </div>
+        `).join('');
+        document.getElementById('resultCompareSteps').innerHTML = stepsHtml;
+        
+        resultEl.classList.add('show');
+        scrollToResult();
+        
+        if (window.cyberSound) window.cyberSound.success();
+        
+        // Save to history
+        saveHistory('logika', data.formula, data.result ? 'TRUE' : 'FALSE', data.steps);
+        renderMiniHistory();
+        
+    } catch (error) {
+        document.getElementById('errorCompareText').textContent = error.message;
+        errorEl.classList.add('show');
+        if (window.cyberSound) window.cyberSound.error();
+    }
+});
+
+// ===== CIRCUIT BUILDER =====
+let gateCount = 0;
+
+document.getElementById('btnAddGate').addEventListener('click', function() {
+    gateCount++;
+    const gateId = 'gate' + gateCount;
+    
+    const gateHtml = `
+        <div class="circuit-row" id="${gateId}">
+            <span style="font-family: 'Orbitron', monospace; color: var(--cyber-blue); font-weight: 700; min-width: 40px;">G${gateCount}</span>
+            <select class="gate-select">
+                <option value="AND">AND</option>
+                <option value="OR">OR</option>
+                <option value="NOT">NOT</option>
+                <option value="XOR">XOR</option>
+                <option value="NAND">NAND</option>
+                <option value="NOR">NOR</option>
+            </select>
+            <input type="text" class="input1" placeholder="Input 1 (0/1 atau G1)" value="0">
+            <input type="text" class="input2" placeholder="Input 2 (0/1 atau G2)" value="0">
+            <button class="circuit-remove" onclick="removeGate('${gateId}')">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+    `;
+    
+    document.getElementById('circuitGates').insertAdjacentHTML('beforeend', gateHtml);
+    if (window.cyberSound) window.cyberSound.click();
+});
+
+function removeGate(gateId) {
+    document.getElementById(gateId).remove();
+    if (window.cyberSound) window.cyberSound.click();
+}
+
+document.getElementById('btnEvaluateCircuit').addEventListener('click', async function() {
+    const gates = [];
+    document.querySelectorAll('.circuit-row').forEach(row => {
+        const gateType = row.querySelector('.gate-select').value;
+        const input1 = row.querySelector('.input1').value.trim();
+        const input2 = row.querySelector('.input2').value.trim();
+        
+        gates.push({
+            gate: gateType,
+            input1: input1,
+            input2: input2
+        });
+    });
+    
+    const errorEl = document.getElementById('errorCircuit');
+    const resultEl = document.getElementById('resultCircuit');
+    
+    errorEl.classList.remove('show');
+    resultEl.classList.remove('show');
+    
+    if (gates.length === 0) {
+        document.getElementById('errorCircuitText').textContent = 'Tambahkan minimal 1 gerbang!';
+        errorEl.classList.add('show');
+        if (window.cyberSound) window.cyberSound.error();
+        return;
+    }
+    
+    try {
+        if (window.cyberSound) window.cyberSound.processing();
+        
+        const response = await fetch('/api/logika/circuit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ gates: gates })
+        });
+        
+        const data = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(data.error || 'Terjadi kesalahan');
+        }
+        
+        // Display result
+        document.getElementById('resultCircuitValue').textContent = data.result === 1 ? '1 (TRUE)' : '0 (FALSE)';
+        document.getElementById('resultCircuitFormula').innerHTML = `<code>${data.formula}</code>`;
+        
+        // Display steps
+        const stepsHtml = data.steps.map((step, i) => `
+            <div class="step-item">
+                <div class="step-number">${i + 1}</div>
+                <div class="step-content">${step}</div>
+            </div>
+        `).join('');
+        document.getElementById('resultCircuitSteps').innerHTML = stepsHtml;
+        
+        resultEl.classList.add('show');
+        scrollToResult();
+        
+        if (window.cyberSound) window.cyberSound.success();
+        
+        // Save to history
+        saveHistory('logika', data.formula, data.result === 1 ? 'TRUE' : 'FALSE', data.steps);
+        renderMiniHistory();
+        
+    } catch (error) {
+        document.getElementById('errorCircuitText').textContent = error.message;
+        errorEl.classList.add('show');
+        if (window.cyberSound) window.cyberSound.error();
+    }
+});
+
+// ===== MINI HISTORY =====
+function renderMiniHistory() {
+    const history = JSON.parse(localStorage.getItem('calculationHistory') || '[]');
+    const filtered = history.filter(h => h.category === 'logika').slice(0, 10);
+    
+    const container = document.getElementById('miniHistory');
+    
+    if (filtered.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <i class="bi bi-inbox"></i>
+                <p>Belum ada operasi</p>
+            </div>
+        `;
+        return;
+    }
+    
+    const html = filtered.map(item => `
+        <div class="mini-history-item">
+            <div style="font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; color: var(--cyber-green); margin-bottom: 0.3rem;">
+                ${item.formula}
+            </div>
+            <div style="color: var(--cyber-blue); font-weight: 700;">
+                ${item.result}
+            </div>
+            <div style="color: var(--text-muted); font-size: 0.75rem; margin-top: 0.2rem;">
+                ${item.timestamp}
+            </div>
+        </div>
+    `).join('');
+    
+    container.innerHTML = html;
+}
+
+function scrollToResult() {
+    setTimeout(() => {
+        const activeTab = document.querySelector('.tab-content.active .result-section.show');
+        if (activeTab) {
+            activeTab.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    }, 100);
+}
+
+// Load history on page load
+renderMiniHistory();
+</script>
+{% endblock %}

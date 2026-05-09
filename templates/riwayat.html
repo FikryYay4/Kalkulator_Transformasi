@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block title %}Riwayat - KalkulatorPro{% endblock %}
+{% block content %}
+<a href="/" class="btn-back"><i class="bi bi-arrow-left"></i> Kembali</a>
+<div class="page-header">
+    <h1><i class="bi bi-clock-history"></i> Riwayat Perhitungan</h1>
+    <p>Semua riwayat perhitungan tersimpan selama sesi browser.</p>
+</div>
+
+<div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+    <div class="d-flex gap-2 flex-wrap">
+        <button class="op-btn active" onclick="filterHistory('all',this)" style="padding:0.5rem 1rem;">Semua</button>
+        <button class="op-btn" onclick="filterHistory('Aritmatika',this)" style="padding:0.5rem 1rem;">Aritmatika</button>
+        <button class="op-btn" onclick="filterHistory('Logika',this)" style="padding:0.5rem 1rem;">Logika</button>
+        <button class="op-btn" onclick="filterHistory('Konversi',this)" style="padding:0.5rem 1rem;">Konversi</button>
+        <button class="op-btn" onclick="filterHistory('Bonus',this)" style="padding:0.5rem 1rem;">Bonus</button>
+    </div>
+    <button class="btn-clear-history" onclick="clearAll()"><i class="bi bi-trash3"></i> Hapus Semua</button>
+</div>
+
+<div id="historyContainer"></div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+let currentFilter = 'all';
+
+function filterHistory(cat, btn) {
+    currentFilter = cat;
+    if (btn) {
+        document.querySelectorAll('.op-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    }
+    renderHistory();
+}
+
+function renderHistory() {
+    const container = document.getElementById('historyContainer');
+    const history = JSON.parse(localStorage.getItem('calculationHistory') || '[]');
+    const filtered = currentFilter === 'all' ? history : history.filter(h => h.category === currentFilter);
+
+    if (filtered.length === 0) {
+        container.innerHTML = '<div class="calc-card"><div class="empty-state"><i class="bi bi-inbox" style="font-size:3rem;display:block;"></i><p class="mt-2 mb-0">Belum ada riwayat perhitungan' + (currentFilter !== 'all' ? ' untuk kategori ' + currentFilter : '') + '.</p></div></div>';
+        return;
+    }
+
+    container.innerHTML = filtered.map((item, idx) => `
+        <div class="history-item" style="animation-delay:${idx * 0.03}s">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <span class="history-category ${item.category.toLowerCase()}">${item.category}</span>
+                    <div class="history-formula">${item.formula}</div>
+                    <div class="history-result">= ${item.result}</div>
+                </div>
+                <div class="text-end">
+                    <div class="history-time">${item.timestamp}</div>
+                    <button class="btn-clear-history mt-1" onclick="deleteItem(${idx})" style="font-size:0.7rem;padding:0.2rem 0.5rem;"><i class="bi bi-x"></i></button>
+                </div>
+            </div>
+            ${item.steps && item.steps.length ? `
+            <details class="mt-2" style="font-size:0.85rem;">
+                <summary style="cursor:pointer;color:var(--primary);font-weight:600;">Lihat Langkah</summary>
+                <div class="mt-2">${item.steps.map((s,i) => '<div class="step-item" style="padding-bottom:0.5rem;"><div class="step-number" style="width:24px;height:24px;min-width:24px;font-size:0.7rem;">'+(i+1)+'</div><div class="step-content" style="padding:0.5rem 0.8rem;font-size:0.8rem;">'+s+'</div></div>').join('')}</div>
+            </details>` : ''}
+        </div>
+    `).join('');
+}
+
+function deleteItem(idx) {
+    const history = JSON.parse(localStorage.getItem('calculationHistory') || '[]');
+    const filtered = currentFilter === 'all' ? history : history.filter(h => h.category === currentFilter);
+    const item = filtered[idx];
+    const realIdx = history.indexOf(item);
+    if (realIdx > -1) { history.splice(realIdx, 1); localStorage.setItem('calculationHistory', JSON.stringify(history)); }
+    renderHistory();
+}
+
+function clearAll() {
+    if (confirm('Hapus semua riwayat perhitungan?')) {
+        if (currentFilter === 'all') {
+            localStorage.removeItem('calculationHistory');
+        } else {
+            const history = JSON.parse(localStorage.getItem('calculationHistory') || '[]').filter(h => h.category !== currentFilter);
+            localStorage.setItem('calculationHistory', JSON.stringify(history));
+        }
+        renderHistory();
+    }
+}
+
+document.addEventListener('DOMContentLoaded', renderHistory);
+</script>
+{% endblock %}

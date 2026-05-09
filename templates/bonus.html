@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block title %}Bonus - KalkulatorPro{% endblock %}
+{% block content %}
+<a href="/" class="btn-back"><i class="bi bi-arrow-left"></i> Kembali</a>
+<div class="page-header">
+    <h1><i class="bi bi-stars"></i> Fitur Bonus</h1>
+    <p>Faktorial dan Deret Fibonacci dengan penjelasan langkah detail.</p>
+</div>
+<div class="row g-4">
+<div class="col-lg-8">
+<div class="calc-card">
+    <div class="tab-nav">
+        <button class="tab-btn active" onclick="swTab('fakt',this)"><i class="bi bi-exclamation-lg"></i> Faktorial</button>
+        <button class="tab-btn" onclick="swTab('fib',this)"><i class="bi bi-diagram-2"></i> Fibonacci</button>
+    </div>
+    <!-- Faktorial -->
+    <div class="tab-content active" id="tcFakt">
+        <div class="calc-card-title"><i class="bi bi-exclamation-lg"></i> Faktorial (n!)</div>
+        <div class="mb-3"><label class="form-label-custom">Masukkan n (0-170)</label><input type="number" class="form-control form-control-custom" id="faktInput" placeholder="Contoh: 5" min="0" max="170"></div>
+        <button class="btn-calculate" onclick="calcFaktorial()"><i class="bi bi-play-fill"></i> Hitung Faktorial</button>
+    </div>
+    <!-- Fibonacci -->
+    <div class="tab-content" id="tcFib">
+        <div class="calc-card-title"><i class="bi bi-diagram-2"></i> Deret Fibonacci</div>
+        <div class="mb-3"><label class="form-label-custom">Jumlah suku (1-50)</label><input type="number" class="form-control form-control-custom" id="fibInput" placeholder="Contoh: 10" min="1" max="50"></div>
+        <button class="btn-calculate" onclick="calcFibonacci()"><i class="bi bi-play-fill"></i> Generate Fibonacci</button>
+    </div>
+    <div class="error-message mt-3" id="errorMsg"><i class="bi bi-exclamation-triangle-fill"></i><span id="errorText"></span></div>
+    <div class="result-section" id="resultSection">
+        <div class="result-value" id="resultValue"></div>
+        <div class="result-formula" id="resultFormula"></div>
+        <div class="steps-title"><i class="bi bi-list-ol"></i> Langkah Penyelesaian</div>
+        <div id="stepsContainer"></div>
+    </div>
+</div>
+</div>
+<div class="col-lg-4">
+<div class="calc-card">
+    <div class="mini-history-title"><span><i class="bi bi-clock-history"></i> Riwayat</span><button class="btn-clear-history btn-sm" onclick="clearCategoryHistory('Bonus')" style="font-size:0.75rem;padding:0.3rem 0.8rem;">Hapus</button></div>
+    <div id="sideHistory"><div class="empty-state" style="padding:1rem;"><i class="bi bi-inbox"></i><p class="mb-0 mt-1" style="font-size:0.85rem;">Belum ada riwayat.</p></div></div>
+</div>
+</div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+function swTab(t,btn){document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));btn.classList.add('active');document.getElementById(t==='fakt'?'tcFakt':'tcFib').classList.add('active');document.getElementById('errorMsg').classList.remove('show');document.getElementById('resultSection').classList.remove('show');}
+
+function calcFaktorial(){
+    const n=parseInt(document.getElementById('faktInput').value);
+    document.getElementById('errorMsg').classList.remove('show');document.getElementById('resultSection').classList.remove('show');
+    if(isNaN(n)||n<0){document.getElementById('errorText').textContent='Masukkan bilangan bulat ≥ 0!';document.getElementById('errorMsg').classList.add('show');return;}
+    if(n>170){document.getElementById('errorText').textContent='Maksimal n = 170!';document.getElementById('errorMsg').classList.add('show');return;}
+    let result=1,steps=['Definisi: n! = n × (n-1) × (n-2) × ... × 1','Khusus: 0! = 1'];
+    if(n===0){result=1;steps.push('Karena n = 0, maka 0! = 1');}
+    else if(n===1){result=1;steps.push('1! = 1');}
+    else{
+        let expr=[];
+        for(let i=n;i>=1;i--){expr.push(i);}
+        steps.push('Substitusi: '+n+'! = '+expr.join(' × '));
+        let running=1;
+        for(let i=n;i>=1;i--){running*=i;if(i>1&&n<=20)steps.push(n+'!/...×'+i+' → progress: '+running);}
+        result=running;
+    }
+    steps.push('Hasil: '+n+'! = '+result.toLocaleString('id-ID'));
+    const fm=n+'!';
+    document.getElementById('resultValue').textContent=result.toLocaleString('id-ID');
+    document.getElementById('resultFormula').innerHTML='Formula: <code>'+fm+' = '+result.toLocaleString('id-ID')+'</code>';
+    document.getElementById('stepsContainer').innerHTML=steps.map((s,i)=>'<div class="step-item"><div class="step-number">'+(i+1)+'</div><div class="step-content">'+s+'</div></div>').join('');
+    document.getElementById('resultSection').classList.add('show');
+    saveHistory('Bonus',fm,result.toLocaleString('id-ID'),steps);renderSH();
+}
+
+function calcFibonacci(){
+    const n=parseInt(document.getElementById('fibInput').value);
+    document.getElementById('errorMsg').classList.remove('show');document.getElementById('resultSection').classList.remove('show');
+    if(isNaN(n)||n<1){document.getElementById('errorText').textContent='Masukkan bilangan ≥ 1!';document.getElementById('errorMsg').classList.add('show');return;}
+    if(n>50){document.getElementById('errorText').textContent='Maksimal 50 suku!';document.getElementById('errorMsg').classList.add('show');return;}
+    let fib=[0,1],steps=['Definisi: F(0)=0, F(1)=1, F(n)=F(n-1)+F(n-2)','F(0) = 0','F(1) = 1'];
+    for(let i=2;i<n;i++){fib.push(fib[i-1]+fib[i-2]);if(i<=15)steps.push('F('+i+') = F('+(i-1)+')+F('+(i-2)+') = '+fib[i-1]+'+'+fib[i-2]+' = '+fib[i]);}
+    const seq=fib.slice(0,n);
+    if(n>15)steps.push('... (suku selanjutnya dihitung serupa)');
+    steps.push('Deret: '+seq.join(', '));
+    const fm='Fibonacci('+n+' suku)';
+    document.getElementById('resultValue').textContent=seq.join(', ');
+    document.getElementById('resultFormula').innerHTML='Formula: <code>'+fm+'</code>';
+    document.getElementById('stepsContainer').innerHTML=steps.map((s,i)=>'<div class="step-item"><div class="step-number">'+(i+1)+'</div><div class="step-content">'+s+'</div></div>').join('');
+    document.getElementById('resultSection').classList.add('show');
+    saveHistory('Bonus',fm,seq.join(', '),steps);renderSH();
+}
+
+function renderSH(){
+    const c=document.getElementById('sideHistory'),h=JSON.parse(localStorage.getItem('calculationHistory')||'[]').filter(x=>x.category==='Bonus').slice(0,8);
+    if(!h.length){c.innerHTML='<div class="empty-state" style="padding:1rem;"><i class="bi bi-inbox"></i><p class="mb-0 mt-1" style="font-size:0.85rem;">Belum ada riwayat.</p></div>';return;}
+    c.innerHTML=h.map(i=>'<div class="mini-history-item"><div class="fw-semibold" style="font-size:0.9rem;">'+i.formula+'</div><div class="d-flex justify-content-between"><span class="history-result" style="font-size:0.95rem;">= '+i.result.substring(0,30)+(i.result.length>30?'...':'')+'</span><span class="history-time">'+i.timestamp+'</span></div></div>').join('');
+}
+document.addEventListener('DOMContentLoaded',renderSH);
+</script>
+{% endblock %}

@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% block title %}Beranda - KalkulatorPro{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <h1 class="hero-title">Kalkulator Canggih</h1>
+    <p class="hero-subtitle">
+        Aplikasi kalkulator multifungsi dengan operasi aritmatika, logika digital,
+        transformasi bilangan, dan penjelasan langkah demi langkah.
+    </p>
+    <div class="d-flex justify-content-center gap-2 flex-wrap" style="animation: fadeInUp 0.8s ease-out 0.2s both;">
+        <span class="stat-badge"><i class="bi bi-lightning-fill text-warning"></i> 8 Operasi Aritmatika</span>
+        <span class="stat-badge"><i class="bi bi-cpu-fill text-info"></i> 6 Operator Logika</span>
+        <span class="stat-badge"><i class="bi bi-arrow-left-right text-success"></i> 3 Jenis Konversi</span>
+    </div>
+</section>
+
+<!-- Feature Cards -->
+<section class="row g-4 mb-5">
+    <div class="col-md-6 col-lg-4">
+        <a href="/aritmatika" class="feature-card" id="card-aritmatika">
+            <div class="feature-icon aritmatika">
+                <i class="bi bi-plus-slash-minus"></i>
+            </div>
+            <h5>Operasi Aritmatika</h5>
+            <p>Penjumlahan, pengurangan, perkalian, pembagian, pangkat, akar, modulus, dan floor division.</p>
+        </a>
+    </div>
+    <div class="col-md-6 col-lg-4">
+        <a href="/logika" class="feature-card" id="card-logika">
+            <div class="feature-icon logika">
+                <i class="bi bi-diagram-3-fill"></i>
+            </div>
+            <h5>Operator Logika</h5>
+            <p>AND, OR, NOT, XOR, NAND, NOR — dengan visualisasi truth table dan penjelasan langkah.</p>
+        </a>
+    </div>
+    <div class="col-md-6 col-lg-4">
+        <a href="/konversi" class="feature-card" id="card-konversi-basis">
+            <div class="feature-icon konversi">
+                <i class="bi bi-arrow-left-right"></i>
+            </div>
+            <h5>Konversi Basis Bilangan</h5>
+            <p>Konversi antara Desimal, Biner, Oktal, dan Heksadesimal secara dua arah.</p>
+        </a>
+    </div>
+    <div class="col-md-6 col-lg-4">
+        <a href="/konversi#suhu" class="feature-card" id="card-konversi-suhu">
+            <div class="feature-icon suhu">
+                <i class="bi bi-thermometer-half"></i>
+            </div>
+            <h5>Konversi Suhu</h5>
+            <p>Celsius, Fahrenheit, Kelvin, dan Réaumur dengan rumus konversi lengkap.</p>
+        </a>
+    </div>
+    <div class="col-md-6 col-lg-4">
+        <a href="/konversi#mata-uang" class="feature-card" id="card-konversi-uang">
+            <div class="feature-icon mata-uang">
+                <i class="bi bi-currency-exchange"></i>
+            </div>
+            <h5>Konversi Mata Uang</h5>
+            <p>IDR ke USD, EUR, SGD, dan MYR menggunakan kurs statis yang akurat.</p>
+        </a>
+    </div>
+    <div class="col-md-6 col-lg-4">
+        <a href="/bonus" class="feature-card" id="card-bonus">
+            <div class="feature-icon bonus">
+                <i class="bi bi-stars"></i>
+            </div>
+            <h5>Fitur Bonus</h5>
+            <p>Perhitungan Faktorial dan generator Deret Fibonacci dengan langkah detail.</p>
+        </a>
+    </div>
+</section>
+
+<!-- Recent History Preview -->
+<section class="calc-card mb-4" id="recentHistory">
+    <div class="mini-history-title">
+        <span><i class="bi bi-clock-history"></i> Riwayat Terakhir</span>
+        <a href="/riwayat" style="font-size:0.85rem; color: var(--primary); text-decoration:none;">Lihat Semua →</a>
+    </div>
+    <div id="recentHistoryList">
+        <div class="empty-state" style="padding:1.5rem;">
+            <i class="bi bi-inbox" style="font-size:2rem;"></i>
+            <p class="mb-0 mt-2">Belum ada riwayat perhitungan.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    renderRecentHistory();
+});
+
+function renderRecentHistory() {
+    const container = document.getElementById('recentHistoryList');
+    const history = JSON.parse(localStorage.getItem('calculationHistory') || '[]');
+    const recent = history.slice(0, 5);
+
+    if (recent.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state" style="padding:1.5rem;">
+                <i class="bi bi-inbox" style="font-size:2rem;"></i>
+                <p class="mb-0 mt-2">Belum ada riwayat perhitungan.</p>
+            </div>`;
+        return;
+    }
+
+    container.innerHTML = recent.map(item => `
+        <div class="mini-history-item">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <span class="history-category ${item.category.toLowerCase()}">${item.category}</span>
+                    <span class="ms-2 fw-semibold">${item.formula}</span>
+                </div>
+                <div class="text-end">
+                    <span class="history-result">${item.result}</span>
+                    <div class="history-time">${item.timestamp}</div>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+</script>
+{% endblock %}

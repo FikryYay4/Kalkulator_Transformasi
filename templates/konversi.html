@@ -1,0 +1,554 @@
+{% extends "base.html" %}
+
+{% block title %}Konversi - LogicLab{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <a href="/" class="btn-back">
+        <i class="bi bi-arrow-left"></i> Kembali
+    </a>
+    <h1><i class="bi bi-arrow-left-right"></i> CONVERSION SYSTEMS</h1>
+    <p>Transformasi bilangan, suhu, dan mata uang dengan langkah detail</p>
+</div>
+
+<div class="row g-4">
+    <!-- Main Calculator -->
+    <div class="col-lg-8">
+        <!-- Tab Navigation -->
+        <div class="tab-nav">
+            <button class="tab-btn active" data-tab="bilangan">
+                <i class="bi bi-hash"></i> Bilangan
+            </button>
+            <button class="tab-btn" data-tab="suhu">
+                <i class="bi bi-thermometer-half"></i> Suhu
+            </button>
+            <button class="tab-btn" data-tab="mata-uang">
+                <i class="bi bi-currency-exchange"></i> Mata Uang
+            </button>
+        </div>
+
+        <!-- Tab 1: Number Conversion -->
+        <div class="tab-content active" id="tab-bilangan">
+            <div class="calc-card">
+                <h3 class="calc-card-title">
+                    <i class="bi bi-hash"></i> KONVERSI BASIS BILANGAN
+                </h3>
+
+                <div class="row g-3 align-items-end">
+                    <div class="col-md-5">
+                        <label class="form-label-custom">DARI</label>
+                        <input type="text" class="form-control-custom" id="numberInput" placeholder="Contoh: 12356">
+                        <label class="form-label-custom mt-2">BASIS</label>
+                        <select class="form-select-custom" id="fromBase">
+                            <option value="2">Binary (2)</option>
+                            <option value="8">Octal (8)</option>
+                            <option value="10" selected>Decimal (10)</option>
+                            <option value="16">Hexadecimal (16)</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-2 d-flex justify-content-center">
+                        <button class="btn-swap" id="btnSwapBase" title="Tukar Basis">
+                            <i class="bi bi-arrow-left-right"></i>
+                        </button>
+                    </div>
+
+                    <div class="col-md-5">
+                        <label class="form-label-custom">KE</label>
+                        <div class="form-control-custom" id="numberOutput" style="background: var(--bg-result); min-height: 48px; display: flex; align-items: center; font-weight: 700; color: var(--cyber-green);">
+                            ---
+                        </div>
+                        <label class="form-label-custom mt-2">BASIS</label>
+                        <select class="form-select-custom" id="toBase">
+                            <option value="2">Binary (2)</option>
+                            <option value="8">Octal (8)</option>
+                            <option value="10">Decimal (10)</option>
+                            <option value="16" selected>Hexadecimal (16)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button class="btn-calculate mt-4" id="btnConvertNumber">
+                    <i class="bi bi-lightning-charge-fill"></i> CONVERT
+                </button>
+
+                <div class="error-message mt-3" id="errorNumber">
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+                    <span id="errorNumberText"></span>
+                </div>
+
+                <div class="result-section" id="resultNumber">
+                    <div class="result-value" id="resultNumberValue"></div>
+                    <div class="result-formula" id="resultNumberFormula"></div>
+                    
+                    <div class="steps-title">
+                        <i class="bi bi-list-ol"></i> LANGKAH KONVERSI
+                    </div>
+                    <div id="resultNumberSteps"></div>
+
+                    <!-- Mathematical Notation -->
+                    <div class="mt-4">
+                        <div class="steps-title">
+                            <i class="bi bi-calculator"></i> NOTASI MATEMATIS
+                        </div>
+                        <div class="math-notation" id="mathNotation"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 2: Temperature Conversion -->
+        <div class="tab-content" id="tab-suhu">
+            <div class="calc-card">
+                <h3 class="calc-card-title">
+                    <i class="bi bi-thermometer-half"></i> KONVERSI SUHU
+                </h3>
+
+                <div class="row g-3 align-items-end">
+                    <div class="col-md-5">
+                        <label class="form-label-custom">NILAI</label>
+                        <input type="number" class="form-control-custom" id="tempInput" placeholder="Contoh: 100" step="0.01">
+                        <label class="form-label-custom mt-2">DARI</label>
+                        <select class="form-select-custom" id="fromTemp">
+                            <option value="C" selected>Celsius (°C)</option>
+                            <option value="F">Fahrenheit (°F)</option>
+                            <option value="K">Kelvin (K)</option>
+                            <option value="R">Réaumur (°R)</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-2 d-flex justify-content-center">
+                        <button class="btn-swap" id="btnSwapTemp" title="Tukar Satuan">
+                            <i class="bi bi-arrow-left-right"></i>
+                        </button>
+                    </div>
+
+                    <div class="col-md-5">
+                        <label class="form-label-custom">HASIL</label>
+                        <div class="form-control-custom" id="tempOutput" style="background: var(--bg-result); min-height: 48px; display: flex; align-items: center; font-weight: 700; color: var(--cyber-green);">
+                            ---
+                        </div>
+                        <label class="form-label-custom mt-2">KE</label>
+                        <select class="form-select-custom" id="toTemp">
+                            <option value="C">Celsius (°C)</option>
+                            <option value="F" selected>Fahrenheit (°F)</option>
+                            <option value="K">Kelvin (K)</option>
+                            <option value="R">Réaumur (°R)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button class="btn-calculate mt-4" id="btnConvertTemp">
+                    <i class="bi bi-lightning-charge-fill"></i> CONVERT
+                </button>
+
+                <div class="error-message mt-3" id="errorTemp">
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+                    <span id="errorTempText"></span>
+                </div>
+
+                <div class="result-section" id="resultTemp">
+                    <div class="result-value" id="resultTempValue"></div>
+                    <div class="result-formula" id="resultTempFormula"></div>
+                    
+                    <div class="steps-title">
+                        <i class="bi bi-list-ol"></i> LANGKAH KONVERSI
+                    </div>
+                    <div id="resultTempSteps"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 3: Currency Conversion -->
+        <div class="tab-content" id="tab-mata-uang">
+            <div class="calc-card">
+                <h3 class="calc-card-title">
+                    <i class="bi bi-currency-exchange"></i> KONVERSI MATA UANG
+                </h3>
+
+                <div class="alert" style="background: rgba(255,234,0,0.1); border: 1px solid rgba(255,234,0,0.3); color: var(--cyber-yellow); padding: 0.75rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.85rem;">
+                    <i class="bi bi-info-circle-fill"></i> Menggunakan kurs statis untuk keperluan demonstrasi
+                </div>
+
+                <div class="row g-3 align-items-end">
+                    <div class="col-md-5">
+                        <label class="form-label-custom">JUMLAH</label>
+                        <input type="number" class="form-control-custom" id="currencyInput" placeholder="Contoh: 1000000" step="0.01">
+                        <label class="form-label-custom mt-2">DARI</label>
+                        <select class="form-select-custom" id="fromCurrency">
+                            <option value="IDR" selected>IDR (Rupiah)</option>
+                            <option value="USD">USD (Dollar)</option>
+                            <option value="EUR">EUR (Euro)</option>
+                            <option value="SGD">SGD (Singapore Dollar)</option>
+                            <option value="MYR">MYR (Ringgit)</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-2 d-flex justify-content-center">
+                        <button class="btn-swap" id="btnSwapCurrency" title="Tukar Mata Uang">
+                            <i class="bi bi-arrow-left-right"></i>
+                        </button>
+                    </div>
+
+                    <div class="col-md-5">
+                        <label class="form-label-custom">HASIL</label>
+                        <div class="form-control-custom" id="currencyOutput" style="background: var(--bg-result); min-height: 48px; display: flex; align-items: center; font-weight: 700; color: var(--cyber-green);">
+                            ---
+                        </div>
+                        <label class="form-label-custom mt-2">KE</label>
+                        <select class="form-select-custom" id="toCurrency">
+                            <option value="IDR">IDR (Rupiah)</option>
+                            <option value="USD" selected>USD (Dollar)</option>
+                            <option value="EUR">EUR (Euro)</option>
+                            <option value="SGD">SGD (Singapore Dollar)</option>
+                            <option value="MYR">MYR (Ringgit)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button class="btn-calculate mt-4" id="btnConvertCurrency">
+                    <i class="bi bi-lightning-charge-fill"></i> CONVERT
+                </button>
+
+                <div class="error-message mt-3" id="errorCurrency">
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+                    <span id="errorCurrencyText"></span>
+                </div>
+
+                <div class="result-section" id="resultCurrency">
+                    <div class="result-value" id="resultCurrencyValue"></div>
+                    <div class="result-formula" id="resultCurrencyFormula"></div>
+                    
+                    <div class="steps-title">
+                        <i class="bi bi-list-ol"></i> LANGKAH KONVERSI
+                    </div>
+                    <div id="resultCurrencySteps"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar: Mini History -->
+    <div class="col-lg-4">
+        <div class="calc-card">
+            <div class="mini-history-title">
+                <span><i class="bi bi-clock-history"></i> RECENT CONVERSIONS</span>
+                <button class="btn btn-sm" onclick="clearCategoryHistory('konversi')" style="background: rgba(255,0,85,0.1); color: var(--cyber-red); border: 1px solid var(--cyber-red); font-size: 0.7rem; padding: 0.2rem 0.6rem; border-radius: 4px;">
+                    CLEAR
+                </button>
+            </div>
+            <div id="miniHistory" style="max-height: 600px; overflow-y: auto;">
+                <div class="empty-state">
+                    <i class="bi bi-inbox"></i>
+                    <p>Belum ada konversi</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// ===== TAB SWITCHING =====
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const tabId = this.dataset.tab;
+        
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        document.getElementById('tab-' + tabId).classList.add('active');
+        
+        if (window.cyberSound) window.cyberSound.click();
+    });
+});
+
+// ===== NUMBER CONVERSION =====
+document.getElementById('btnSwapBase').addEventListener('click', function() {
+    const from = document.getElementById('fromBase');
+    const to = document.getElementById('toBase');
+    const temp = from.value;
+    from.value = to.value;
+    to.value = temp;
+    if (window.cyberSound) window.cyberSound.click();
+});
+
+document.getElementById('btnConvertNumber').addEventListener('click', async function() {
+    const number = document.getElementById('numberInput').value.trim();
+    const fromBase = document.getElementById('fromBase').value;
+    const toBase = document.getElementById('toBase').value;
+    
+    const errorEl = document.getElementById('errorNumber');
+    const resultEl = document.getElementById('resultNumber');
+    
+    errorEl.classList.remove('show');
+    resultEl.classList.remove('show');
+    
+    if (!number) {
+        document.getElementById('errorNumberText').textContent = 'Masukkan angka!';
+        errorEl.classList.add('show');
+        if (window.cyberSound) window.cyberSound.error();
+        return;
+    }
+    
+    try {
+        if (window.cyberSound) window.cyberSound.processing();
+        
+        const response = await fetch('/api/konversi/bilangan', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                number: number,
+                from_base: parseInt(fromBase),
+                to_base: parseInt(toBase)
+            })
+        });
+        
+        const data = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(data.error || 'Terjadi kesalahan');
+        }
+        
+        // Update output display
+        document.getElementById('numberOutput').textContent = data.result;
+        
+        // Display result
+        document.getElementById('resultNumberValue').textContent = data.result;
+        document.getElementById('resultNumberFormula').innerHTML = `<code>${data.formula}</code>`;
+        
+        // Display steps
+        const stepsHtml = data.steps.map((step, i) => `
+            <div class="step-item">
+                <div class="step-number">${i + 1}</div>
+                <div class="step-content">${step}</div>
+            </div>
+        `).join('');
+        document.getElementById('resultNumberSteps').innerHTML = stepsHtml;
+        
+        // Display mathematical notation
+        document.getElementById('mathNotation').textContent = data.formula;
+        
+        resultEl.classList.add('show');
+        scrollToResult();
+        
+        if (window.cyberSound) window.cyberSound.success();
+        
+        // Save to history
+        saveHistory('konversi', data.formula, data.result, data.steps);
+        renderMiniHistory();
+        
+    } catch (error) {
+        document.getElementById('errorNumberText').textContent = error.message;
+        errorEl.classList.add('show');
+        if (window.cyberSound) window.cyberSound.error();
+    }
+});
+
+// ===== TEMPERATURE CONVERSION =====
+document.getElementById('btnSwapTemp').addEventListener('click', function() {
+    const from = document.getElementById('fromTemp');
+    const to = document.getElementById('toTemp');
+    const temp = from.value;
+    from.value = to.value;
+    to.value = temp;
+    if (window.cyberSound) window.cyberSound.click();
+});
+
+document.getElementById('btnConvertTemp').addEventListener('click', async function() {
+    const value = document.getElementById('tempInput').value;
+    const fromUnit = document.getElementById('fromTemp').value;
+    const toUnit = document.getElementById('toTemp').value;
+    
+    const errorEl = document.getElementById('errorTemp');
+    const resultEl = document.getElementById('resultTemp');
+    
+    errorEl.classList.remove('show');
+    resultEl.classList.remove('show');
+    
+    if (!value) {
+        document.getElementById('errorTempText').textContent = 'Masukkan nilai suhu!';
+        errorEl.classList.add('show');
+        if (window.cyberSound) window.cyberSound.error();
+        return;
+    }
+    
+    try {
+        if (window.cyberSound) window.cyberSound.processing();
+        
+        const response = await fetch('/api/konversi/suhu', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                value: parseFloat(value),
+                from_unit: fromUnit,
+                to_unit: toUnit
+            })
+        });
+        
+        const data = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(data.error || 'Terjadi kesalahan');
+        }
+        
+        // Update output display
+        document.getElementById('tempOutput').textContent = data.result + '°' + toUnit;
+        
+        // Display result
+        document.getElementById('resultTempValue').textContent = data.result + '°' + toUnit;
+        document.getElementById('resultTempFormula').innerHTML = `<code>${data.formula}</code>`;
+        
+        // Display steps
+        const stepsHtml = data.steps.map((step, i) => `
+            <div class="step-item">
+                <div class="step-number">${i + 1}</div>
+                <div class="step-content">${step}</div>
+            </div>
+        `).join('');
+        document.getElementById('resultTempSteps').innerHTML = stepsHtml;
+        
+        resultEl.classList.add('show');
+        scrollToResult();
+        
+        if (window.cyberSound) window.cyberSound.success();
+        
+        // Save to history
+        saveHistory('konversi', data.formula, data.result + '°' + toUnit, data.steps);
+        renderMiniHistory();
+        
+    } catch (error) {
+        document.getElementById('errorTempText').textContent = error.message;
+        errorEl.classList.add('show');
+        if (window.cyberSound) window.cyberSound.error();
+    }
+});
+
+// ===== CURRENCY CONVERSION =====
+document.getElementById('btnSwapCurrency').addEventListener('click', function() {
+    const from = document.getElementById('fromCurrency');
+    const to = document.getElementById('toCurrency');
+    const temp = from.value;
+    from.value = to.value;
+    to.value = temp;
+    if (window.cyberSound) window.cyberSound.click();
+});
+
+document.getElementById('btnConvertCurrency').addEventListener('click', async function() {
+    const amount = document.getElementById('currencyInput').value;
+    const fromCurrency = document.getElementById('fromCurrency').value;
+    const toCurrency = document.getElementById('toCurrency').value;
+    
+    const errorEl = document.getElementById('errorCurrency');
+    const resultEl = document.getElementById('resultCurrency');
+    
+    errorEl.classList.remove('show');
+    resultEl.classList.remove('show');
+    
+    if (!amount) {
+        document.getElementById('errorCurrencyText').textContent = 'Masukkan jumlah!';
+        errorEl.classList.add('show');
+        if (window.cyberSound) window.cyberSound.error();
+        return;
+    }
+    
+    try {
+        if (window.cyberSound) window.cyberSound.processing();
+        
+        const response = await fetch('/api/konversi/mata-uang', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                amount: parseFloat(amount),
+                from_currency: fromCurrency,
+                to_currency: toCurrency
+            })
+        });
+        
+        const data = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(data.error || 'Terjadi kesalahan');
+        }
+        
+        // Update output display
+        document.getElementById('currencyOutput').textContent = data.result.toLocaleString('id-ID', {minimumFractionDigits: 2}) + ' ' + toCurrency;
+        
+        // Display result
+        document.getElementById('resultCurrencyValue').textContent = data.result.toLocaleString('id-ID', {minimumFractionDigits: 2}) + ' ' + toCurrency;
+        document.getElementById('resultCurrencyFormula').innerHTML = `<code>${data.formula}</code>`;
+        
+        // Display steps
+        const stepsHtml = data.steps.map((step, i) => `
+            <div class="step-item">
+                <div class="step-number">${i + 1}</div>
+                <div class="step-content">${step}</div>
+            </div>
+        `).join('');
+        document.getElementById('resultCurrencySteps').innerHTML = stepsHtml;
+        
+        resultEl.classList.add('show');
+        scrollToResult();
+        
+        if (window.cyberSound) window.cyberSound.success();
+        
+        // Save to history
+        saveHistory('konversi', data.formula, data.result.toLocaleString('id-ID', {minimumFractionDigits: 2}) + ' ' + toCurrency, data.steps);
+        renderMiniHistory();
+        
+    } catch (error) {
+        document.getElementById('errorCurrencyText').textContent = error.message;
+        errorEl.classList.add('show');
+        if (window.cyberSound) window.cyberSound.error();
+    }
+});
+
+// ===== MINI HISTORY =====
+function renderMiniHistory() {
+    const history = JSON.parse(localStorage.getItem('calculationHistory') || '[]');
+    const filtered = history.filter(h => h.category === 'konversi').slice(0, 10);
+    
+    const container = document.getElementById('miniHistory');
+    
+    if (filtered.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <i class="bi bi-inbox"></i>
+                <p>Belum ada konversi</p>
+            </div>
+        `;
+        return;
+    }
+    
+    const html = filtered.map(item => `
+        <div class="mini-history-item">
+            <div style="font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; color: var(--cyber-green); margin-bottom: 0.3rem;">
+                ${item.formula}
+            </div>
+            <div style="color: var(--cyber-blue); font-weight: 700;">
+                ${item.result}
+            </div>
+            <div style="color: var(--text-muted); font-size: 0.75rem; margin-top: 0.2rem;">
+                ${item.timestamp}
+            </div>
+        </div>
+    `).join('');
+    
+    container.innerHTML = html;
+}
+
+function scrollToResult() {
+    setTimeout(() => {
+        const activeTab = document.querySelector('.tab-content.active .result-section.show');
+        if (activeTab) {
+            activeTab.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    }, 100);
+}
+
+// Load history on page load
+renderMiniHistory();
+</script>
+{% endblock %}

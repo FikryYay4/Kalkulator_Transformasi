@@ -1,0 +1,724 @@
+/* ===== CYBERSECURITY THEME - LOGICLAB ===== */
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+:root {
+    /* Cyber Colors */
+    --cyber-green: #00ff87;
+    --cyber-green-dark: #00cc6a;
+    --cyber-blue: #00d9ff;
+    --cyber-purple: #b026ff;
+    --cyber-red: #ff0055;
+    --cyber-yellow: #ffea00;
+    
+    /* Matrix Theme */
+    --matrix-bg: #0a0e27;
+    --matrix-bg-light: #0f1419;
+    --matrix-card: rgba(15, 20, 25, 0.95);
+    --matrix-border: rgba(0, 255, 135, 0.3);
+    --matrix-glow: rgba(0, 255, 135, 0.5);
+    
+    /* Terminal Colors */
+    --terminal-bg: #000000;
+    --terminal-text: #00ff87;
+    --terminal-prompt: #00d9ff;
+    --terminal-error: #ff0055;
+    
+    /* Gradients */
+    --gradient-cyber: linear-gradient(135deg, #00ff87 0%, #00d9ff 50%, #b026ff 100%);
+    --gradient-matrix: linear-gradient(180deg, rgba(0,255,135,0.1) 0%, transparent 100%);
+    --gradient-scan: linear-gradient(180deg, transparent 0%, var(--cyber-green) 50%, transparent 100%);
+    
+    /* Shadows & Glows */
+    --glow-green: 0 0 10px rgba(0,255,135,0.5), 0 0 20px rgba(0,255,135,0.3), 0 0 30px rgba(0,255,135,0.1);
+    --glow-blue: 0 0 10px rgba(0,217,255,0.5), 0 0 20px rgba(0,217,255,0.3);
+    --glow-purple: 0 0 10px rgba(176,38,255,0.5), 0 0 20px rgba(176,38,255,0.3);
+    --glow-red: 0 0 10px rgba(255,0,85,0.5), 0 0 20px rgba(255,0,85,0.3);
+    
+    --shadow-cyber: 0 8px 32px rgba(0,0,0,0.8);
+    --shadow-inset: inset 0 2px 10px rgba(0,0,0,0.5);
+}
+
+[data-theme="dark"] {
+    --bg-body: var(--matrix-bg);
+    --bg-card: var(--matrix-card);
+    --bg-card-solid: #0f1419;
+    --bg-navbar: rgba(10, 14, 39, 0.98);
+    --bg-input: rgba(0, 0, 0, 0.6);
+    --bg-result: linear-gradient(135deg, rgba(0,255,135,0.05), rgba(0,217,255,0.05));
+    
+    --text-primary: var(--cyber-green);
+    --text-secondary: #8b9dc3;
+    --text-muted: #4a5568;
+    
+    --border-color: var(--matrix-border);
+    --border-input: rgba(0,255,135,0.4);
+    
+    --primary: var(--cyber-green);
+    --primary-dark: var(--cyber-green-dark);
+    --secondary: var(--cyber-blue);
+    --accent: var(--cyber-purple);
+    --danger: var(--cyber-red);
+    --warning: var(--cyber-yellow);
+}
+
+/* ===== MATRIX RAIN BACKGROUND ===== */
+body[data-theme="dark"]::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: 
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(0,255,135,0.03) 2px,
+            rgba(0,255,135,0.03) 4px
+        );
+    pointer-events: none;
+    z-index: 0;
+    animation: scanlines 8s linear infinite;
+}
+
+@keyframes scanlines {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(20px); }
+}
+
+/* Matrix falling code effect */
+body[data-theme="dark"]::after {
+    content: '';
+    position: fixed;
+    top: -100%; left: 0;
+    width: 100%; height: 200%;
+    background-image: 
+        radial-gradient(circle at 20% 50%, rgba(0,255,135,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(0,217,255,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 20%, rgba(176,38,255,0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+    animation: matrixRain 20s linear infinite;
+}
+
+@keyframes matrixRain {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(50%); }
+}
+
+/* ===== CYBER GRID ===== */
+.cyber-grid {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-image: 
+        linear-gradient(rgba(0,255,135,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,135,0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+[data-theme="dark"] .cyber-grid {
+    opacity: 1;
+}
+
+/* ===== GLITCH EFFECT ===== */
+@keyframes glitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+}
+
+.glitch {
+    position: relative;
+    animation: glitch 0.3s ease-in-out;
+}
+
+/* ===== SCAN ANIMATION ===== */
+@keyframes scan {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+}
+
+.scan-line {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100px;
+    background: var(--gradient-scan);
+    pointer-events: none;
+    opacity: 0.3;
+    animation: scan 3s ease-in-out infinite;
+    z-index: 10;
+}
+
+/* ===== TERMINAL NAVBAR ===== */
+[data-theme="dark"] .navbar-custom {
+    background: var(--bg-navbar);
+    border-bottom: 2px solid var(--cyber-green);
+    box-shadow: 0 0 20px rgba(0,255,135,0.3), var(--shadow-cyber);
+    backdrop-filter: blur(10px);
+}
+
+[data-theme="dark"] .navbar-custom .navbar-brand {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    font-size: 1.5rem;
+    color: var(--cyber-green);
+    text-shadow: var(--glow-green);
+    letter-spacing: 2px;
+}
+
+[data-theme="dark"] .navbar-custom .navbar-brand::before {
+    content: '> ';
+    color: var(--cyber-blue);
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+[data-theme="dark"] .navbar-custom .nav-link {
+    font-family: 'Rajdhani', sans-serif;
+    color: #8b9dc3;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .navbar-custom .nav-link::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 80%; height: 2px;
+    background: var(--gradient-cyber);
+    transition: transform 0.3s ease;
+}
+
+[data-theme="dark"] .navbar-custom .nav-link:hover,
+[data-theme="dark"] .navbar-custom .nav-link.active {
+    color: var(--cyber-green);
+    text-shadow: var(--glow-green);
+}
+
+[data-theme="dark"] .navbar-custom .nav-link:hover::before,
+[data-theme="dark"] .navbar-custom .nav-link.active::before {
+    transform: translateX(-50%) scaleX(1);
+}
+
+/* ===== THEME TOGGLE - CYBER STYLE ===== */
+[data-theme="dark"] .theme-toggle {
+    background: var(--terminal-bg);
+    border: 2px solid var(--cyber-green);
+    color: var(--cyber-green);
+    box-shadow: var(--glow-green);
+    position: relative;
+    overflow: hidden;
+}
+
+[data-theme="dark"] .theme-toggle::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0; height: 0;
+    background: rgba(0,255,135,0.3);
+    border-radius: 50%;
+    transition: width 0.3s ease, height 0.3s ease;
+}
+
+[data-theme="dark"] .theme-toggle:hover::before {
+    width: 100%; height: 100%;
+}
+
+[data-theme="dark"] .theme-toggle:hover {
+    transform: rotate(180deg) scale(1.1);
+    box-shadow: 0 0 20px rgba(0,255,135,0.8);
+}
+
+/* ===== HERO SECTION - TERMINAL STYLE ===== */
+[data-theme="dark"] .hero-title {
+    font-family: 'Orbitron', monospace;
+    color: var(--cyber-green);
+    text-shadow: var(--glow-green);
+    letter-spacing: 3px;
+    position: relative;
+}
+
+[data-theme="dark"] .hero-title::after {
+    content: '_';
+    animation: blink 1s step-end infinite;
+    color: var(--cyber-blue);
+}
+
+[data-theme="dark"] .hero-subtitle {
+    font-family: 'Rajdhani', sans-serif;
+    color: #8b9dc3;
+    font-weight: 500;
+}
+
+/* ===== FEATURE CARDS - CYBER PANELS ===== */
+[data-theme="dark"] .feature-card {
+    background: var(--matrix-card);
+    border: 2px solid var(--matrix-border);
+    box-shadow: var(--shadow-cyber), inset 0 0 20px rgba(0,255,135,0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+[data-theme="dark"] .feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: var(--gradient-matrix);
+    transition: left 0.5s ease;
+}
+
+[data-theme="dark"] .feature-card:hover::before {
+    left: 0;
+}
+
+[data-theme="dark"] .feature-card:hover {
+    border-color: var(--cyber-green);
+    box-shadow: var(--glow-green), var(--shadow-cyber);
+    transform: translateY(-8px) scale(1.02);
+}
+
+[data-theme="dark"] .feature-card::after {
+    content: '';
+    position: absolute;
+    top: -2px; left: -2px; right: -2px; bottom: -2px;
+    background: var(--gradient-cyber);
+    border-radius: inherit;
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+}
+
+[data-theme="dark"] .feature-card:hover::after {
+    opacity: 0.2;
+}
+
+[data-theme="dark"] .feature-icon {
+    background: var(--terminal-bg);
+    border: 2px solid var(--cyber-green);
+    box-shadow: var(--glow-green);
+}
+
+[data-theme="dark"] .feature-card h5 {
+    font-family: 'Orbitron', monospace;
+    color: var(--cyber-green);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+[data-theme="dark"] .feature-card p {
+    font-family: 'Rajdhani', sans-serif;
+    color: #8b9dc3;
+}
+
+/* ===== CALCULATOR CARD - TERMINAL PANEL ===== */
+[data-theme="dark"] .calc-card {
+    background: var(--matrix-card);
+    border: 2px solid var(--matrix-border);
+    box-shadow: var(--shadow-cyber), inset 0 0 30px rgba(0,255,135,0.05);
+    position: relative;
+}
+
+[data-theme="dark"] .calc-card::before {
+    height: 4px;
+    background: var(--gradient-cyber);
+    box-shadow: var(--glow-green);
+}
+
+[data-theme="dark"] .calc-card-title {
+    font-family: 'Orbitron', monospace;
+    color: var(--cyber-green);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: var(--glow-green);
+}
+
+/* ===== FORM CONTROLS - TERMINAL INPUT ===== */
+[data-theme="dark"] .form-label-custom {
+    font-family: 'Rajdhani', sans-serif;
+    color: var(--cyber-blue);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+}
+
+[data-theme="dark"] .form-control-custom,
+[data-theme="dark"] .form-select-custom {
+    background: var(--terminal-bg);
+    border: 2px solid var(--matrix-border);
+    color: var(--cyber-green);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.1rem;
+    box-shadow: var(--shadow-inset);
+}
+
+[data-theme="dark"] .form-control-custom:focus,
+[data-theme="dark"] .form-select-custom:focus {
+    border-color: var(--cyber-green);
+    box-shadow: var(--glow-green), var(--shadow-inset);
+    color: var(--cyber-green);
+}
+
+[data-theme="dark"] .form-control-custom::placeholder {
+    color: #4a5568;
+    font-style: italic;
+}
+
+/* ===== OPERATION BUTTONS - CYBER KEYS ===== */
+[data-theme="dark"] .op-btn {
+    background: var(--terminal-bg);
+    border: 2px solid var(--matrix-border);
+    color: var(--cyber-green);
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    text-transform: uppercase;
+    box-shadow: var(--shadow-inset);
+    position: relative;
+    overflow: hidden;
+}
+
+[data-theme="dark"] .op-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0; height: 0;
+    background: rgba(0,255,135,0.2);
+    border-radius: 50%;
+    transition: width 0.3s ease, height 0.3s ease;
+}
+
+[data-theme="dark"] .op-btn:hover::before {
+    width: 200%; height: 200%;
+}
+
+[data-theme="dark"] .op-btn:hover {
+    border-color: var(--cyber-green);
+    box-shadow: var(--glow-green);
+    color: var(--cyber-green);
+}
+
+[data-theme="dark"] .op-btn.active {
+    background: var(--cyber-green);
+    color: var(--terminal-bg);
+    border-color: var(--cyber-green);
+    box-shadow: var(--glow-green);
+}
+
+/* ===== CALCULATE BUTTON - EXECUTE COMMAND ===== */
+[data-theme="dark"] .btn-calculate {
+    background: var(--terminal-bg);
+    border: 3px solid var(--cyber-green);
+    color: var(--cyber-green);
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    box-shadow: var(--glow-green);
+    position: relative;
+    overflow: hidden;
+}
+
+[data-theme="dark"] .btn-calculate::before {
+    background: linear-gradient(90deg, transparent, rgba(0,255,135,0.5), transparent);
+}
+
+[data-theme="dark"] .btn-calculate::after {
+    content: '> EXECUTE';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+[data-theme="dark"] .btn-calculate:hover {
+    background: var(--cyber-green);
+    color: var(--terminal-bg);
+    box-shadow: 0 0 30px rgba(0,255,135,0.8), 0 0 60px rgba(0,255,135,0.4);
+}
+
+[data-theme="dark"] .btn-calculate:active {
+    animation: glitch 0.3s ease;
+}
+
+/* ===== RESULT SECTION - OUTPUT TERMINAL ===== */
+[data-theme="dark"] .result-section {
+    background: var(--terminal-bg);
+    border: 2px solid var(--cyber-green);
+    box-shadow: var(--glow-green), var(--shadow-inset);
+    position: relative;
+}
+
+[data-theme="dark"] .result-section::before {
+    content: '> OUTPUT:';
+    position: absolute;
+    top: -12px; left: 20px;
+    background: var(--matrix-bg);
+    padding: 0 10px;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.75rem;
+    color: var(--cyber-blue);
+    letter-spacing: 2px;
+}
+
+[data-theme="dark"] .result-value {
+    font-family: 'Orbitron', monospace;
+    color: var(--cyber-green);
+    text-shadow: var(--glow-green);
+    animation: flicker 0.5s ease-in;
+}
+
+@keyframes flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+[data-theme="dark"] .result-formula {
+    color: var(--cyber-blue);
+    font-family: 'Share Tech Mono', monospace;
+    border-bottom-color: var(--matrix-border);
+}
+
+[data-theme="dark"] .result-formula code {
+    background: rgba(0,255,135,0.1);
+    border: 1px solid var(--matrix-border);
+    color: var(--cyber-green);
+    font-family: 'Share Tech Mono', monospace;
+}
+
+/* ===== MATH NOTATION - CODE BLOCK ===== */
+[data-theme="dark"] .math-notation {
+    background: var(--terminal-bg);
+    border: 2px solid var(--matrix-border);
+    color: var(--cyber-green);
+    font-family: 'Share Tech Mono', monospace;
+    box-shadow: var(--shadow-inset);
+}
+
+[data-theme="dark"] .math-notation .highlight {
+    color: var(--cyber-blue);
+    text-shadow: var(--glow-blue);
+}
+
+/* ===== STEPS TIMELINE - EXECUTION LOG ===== */
+[data-theme="dark"] .steps-title {
+    font-family: 'Orbitron', monospace;
+    color: var(--cyber-blue);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+[data-theme="dark"] .step-item::after {
+    background: var(--matrix-border);
+    box-shadow: 0 0 5px rgba(0,255,135,0.3);
+}
+
+[data-theme="dark"] .step-number {
+    background: var(--terminal-bg);
+    border: 2px solid var(--cyber-green);
+    color: var(--cyber-green);
+    font-family: 'Orbitron', monospace;
+    box-shadow: var(--glow-green);
+}
+
+[data-theme="dark"] .step-content {
+    background: rgba(0,0,0,0.6);
+    border: 1px solid var(--matrix-border);
+    color: #8b9dc3;
+    font-family: 'Rajdhani', sans-serif;
+    box-shadow: var(--shadow-inset);
+}
+
+/* ===== CIRCUIT BUILDER - LOGIC DESIGNER ===== */
+[data-theme="dark"] .circuit-row {
+    background: var(--terminal-bg);
+    border: 2px solid var(--matrix-border);
+    box-shadow: var(--shadow-inset);
+}
+
+[data-theme="dark"] .circuit-row select,
+[data-theme="dark"] .circuit-row input {
+    background: rgba(0,0,0,0.8);
+    border: 1px solid var(--matrix-border);
+    color: var(--cyber-green);
+    font-family: 'Share Tech Mono', monospace;
+}
+
+[data-theme="dark"] .circuit-remove {
+    background: rgba(255,0,85,0.2);
+    border: 2px solid var(--cyber-red);
+    color: var(--cyber-red);
+}
+
+[data-theme="dark"] .circuit-remove:hover {
+    background: var(--cyber-red);
+    box-shadow: var(--glow-red);
+}
+
+[data-theme="dark"] .btn-add-gate {
+    background: rgba(0,255,135,0.1);
+    border: 2px dashed var(--cyber-green);
+    color: var(--cyber-green);
+    font-family: 'Orbitron', monospace;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+[data-theme="dark"] .btn-add-gate:hover {
+    background: rgba(0,255,135,0.2);
+    box-shadow: var(--glow-green);
+}
+
+/* ===== ERROR MESSAGE - ALERT ===== */
+[data-theme="dark"] .error-message {
+    background: rgba(255,0,85,0.1);
+    border: 2px solid var(--cyber-red);
+    color: var(--cyber-red);
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    box-shadow: var(--glow-red);
+}
+
+/* ===== TABS - MODE SELECTOR ===== */
+[data-theme="dark"] .tab-nav {
+    background: var(--terminal-bg);
+    border: 2px solid var(--matrix-border);
+}
+
+[data-theme="dark"] .tab-btn {
+    font-family: 'Orbitron', monospace;
+    color: #8b9dc3;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+[data-theme="dark"] .tab-btn.active {
+    background: var(--cyber-green);
+    color: var(--terminal-bg);
+    box-shadow: var(--glow-green);
+}
+
+/* ===== HISTORY - LOG ENTRIES ===== */
+[data-theme="dark"] .history-item {
+    background: var(--matrix-card);
+    border: 2px solid var(--matrix-border);
+    box-shadow: var(--shadow-cyber);
+}
+
+[data-theme="dark"] .history-item:hover {
+    border-color: var(--cyber-green);
+    box-shadow: var(--glow-green);
+}
+
+[data-theme="dark"] .history-category {
+    font-family: 'Orbitron', monospace;
+    border: 1px solid currentColor;
+    box-shadow: 0 0 10px currentColor;
+}
+
+[data-theme="dark"] .history-formula {
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--cyber-green);
+}
+
+[data-theme="dark"] .history-result {
+    color: var(--cyber-blue);
+    text-shadow: var(--glow-blue);
+}
+
+/* ===== LOADING SPINNER - PROCESSING ===== */
+[data-theme="dark"] .spinner {
+    border-color: rgba(0,255,135,0.2);
+    border-top-color: var(--cyber-green);
+    box-shadow: var(--glow-green);
+}
+
+/* ===== SCROLLBAR - CYBER STYLE ===== */
+[data-theme="dark"]::-webkit-scrollbar {
+    width: 10px;
+    background: var(--terminal-bg);
+}
+
+[data-theme="dark"]::-webkit-scrollbar-track {
+    background: var(--terminal-bg);
+    border-left: 1px solid var(--matrix-border);
+}
+
+[data-theme="dark"]::-webkit-scrollbar-thumb {
+    background: var(--cyber-green);
+    border-radius: 0;
+    box-shadow: var(--glow-green);
+}
+
+[data-theme="dark"]::-webkit-scrollbar-thumb:hover {
+    background: var(--cyber-blue);
+    box-shadow: var(--glow-blue);
+}
+
+/* ===== TYPING EFFECT ===== */
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+.typing-effect {
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typing 2s steps(40, end);
+}
+
+/* ===== PULSE EFFECT ===== */
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: var(--glow-green);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(0,255,135,0.8), 0 0 40px rgba(0,255,135,0.5);
+    }
+}
+
+.pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* ===== HOLOGRAM EFFECT ===== */
+.hologram {
+    position: relative;
+}
+
+.hologram::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(
+        180deg,
+        transparent 0%,
+        rgba(0,255,135,0.1) 50%,
+        transparent 100%
+    );
+    animation: hologram-scan 3s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes hologram-scan {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+}
