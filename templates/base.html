@@ -142,9 +142,10 @@
             }, 800);
         });
 
-        // Matrix rain effect (optional - can be heavy on performance)
-        function createMatrixRain() {
+        // Matrix/Cyber rain effect - Works for both themes
+        function createCyberRain() {
             const canvas = document.createElement('canvas');
+            canvas.id = 'cyberRainCanvas';
             canvas.style.position = 'fixed';
             canvas.style.top = '0';
             canvas.style.left = '0';
@@ -152,24 +153,41 @@
             canvas.style.height = '100%';
             canvas.style.pointerEvents = 'none';
             canvas.style.zIndex = '0';
-            canvas.style.opacity = '0.15';
             document.body.insertBefore(canvas, document.body.firstChild);
 
             const ctx = canvas.getContext('2d');
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
 
-            const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+            // Characters for the rain
+            const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン<>{}[]()';
             const fontSize = 14;
             const columns = canvas.width / fontSize;
             const drops = Array(Math.floor(columns)).fill(1);
 
-            function draw() {
-                ctx.fillStyle = 'rgba(10, 14, 39, 0.05)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            let intervalId;
 
-                ctx.fillStyle = '#00ff87';
-                ctx.font = fontSize + 'px monospace';
+            function draw() {
+                const theme = document.documentElement.getAttribute('data-theme');
+                
+                if (theme === 'dark') {
+                    // Dark mode - Matrix green
+                    ctx.fillStyle = 'rgba(10, 14, 39, 0.05)';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    ctx.fillStyle = '#00ff87';
+                    canvas.style.opacity = '0.15';
+                } else {
+                    // Light mode - Cyber blue/purple
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Random colors for light mode
+                    const colors = ['rgba(102, 102, 241, 0.6)', 'rgba(139, 92, 246, 0.6)', 'rgba(236, 72, 153, 0.6)'];
+                    ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
+                    canvas.style.opacity = '0.25';
+                }
+
+                ctx.font = fontSize + 'px "Share Tech Mono", monospace';
 
                 for (let i = 0; i < drops.length; i++) {
                     const text = chars[Math.floor(Math.random() * chars.length)];
@@ -182,23 +200,29 @@
                 }
             }
 
-            // Only enable matrix rain in dark theme
-            let intervalId;
-            function checkTheme() {
-                const theme = document.documentElement.getAttribute('data-theme');
-                if (theme === 'dark' && !intervalId) {
+            function startRain() {
+                if (!intervalId) {
                     intervalId = setInterval(draw, 50);
                     canvas.style.display = 'block';
-                } else if (theme !== 'dark' && intervalId) {
+                }
+            }
+
+            function stopRain() {
+                if (intervalId) {
                     clearInterval(intervalId);
                     intervalId = null;
                     canvas.style.display = 'none';
                 }
             }
 
-            checkTheme();
+            // Start rain
+            startRain();
+
             // Watch for theme changes
-            const observer = new MutationObserver(checkTheme);
+            const observer = new MutationObserver(() => {
+                // Just continue drawing with new colors
+                if (!intervalId) startRain();
+            });
             observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
             // Resize handler
@@ -206,12 +230,12 @@
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
             });
+
+            return { start: startRain, stop: stopRain };
         }
 
-        // Initialize matrix rain (comment out if too heavy)
-        if (document.documentElement.getAttribute('data-theme') === 'dark') {
-            createMatrixRain();
-        }
+        // Initialize cyber rain
+        const cyberRain = createCyberRain();
 
         // Scan line effect on page load
         function addScanLine() {
