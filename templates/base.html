@@ -1,11 +1,20 @@
 <!DOCTYPE html>
-<html lang="id" data-theme="light">
+<html lang="id" data-theme="dark" class="theme-dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="LogicLab - Terminal kalkulator cybersecurity dengan operasi aritmatika, logika digital, dan transformasi bilangan.">
     <meta name="keywords" content="kalkulator, binary, logic gates, number conversion, cybersecurity, terminal">
     <title>{% block title %}LogicLab - Cyber Calculator{% endblock %}</title>
+    
+    <!-- CRITICAL: Set theme BEFORE any rendering -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            document.documentElement.className = 'theme-' + savedTheme;
+        })();
+    </script>
 
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -17,7 +26,7 @@
     <link href="{{ url_for('static', filename='css/light-theme.css') }}" rel="stylesheet">
     
     <style>
-        /* Preload animation */
+        /* Preload animation - Dark Mode */
         .preloader {
             position: fixed;
             top: 0; left: 0;
@@ -29,16 +38,35 @@
             z-index: 9999;
             transition: opacity 0.5s ease;
         }
+        
+        /* Light Mode Preloader */
+        [data-theme="light"] .preloader,
+        html.theme-light .preloader {
+            background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #4facfe);
+            background-size: 400% 400%;
+            animation: gradientShift 3s ease infinite;
+        }
+        
         .preloader.hidden {
             opacity: 0;
             pointer-events: none;
         }
+        
         .preloader-text {
             font-family: 'Orbitron', monospace;
             color: #00ff87;
             font-size: 1.5rem;
             text-shadow: 0 0 10px rgba(0,255,135,0.5);
+            letter-spacing: 2px;
         }
+        
+        /* Light Mode Preloader Text */
+        [data-theme="light"] .preloader-text,
+        html.theme-light .preloader-text {
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(255,255,255,0.8), 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
         .preloader-text::after {
             content: '';
             animation: dots 1.5s steps(4, end) infinite;
@@ -49,13 +77,42 @@
             60% { content: '..'; }
             80%, 100% { content: '...'; }
         }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
     </style>
 </head>
 <body>
     <!-- Preloader -->
     <div class="preloader" id="preloader">
-        <div class="preloader-text">INITIALIZING SYSTEM</div>
+        <div class="preloader-text" id="preloaderText">INITIALIZING SYSTEM</div>
     </div>
+    
+    <script>
+        // Apply theme to preloader text immediately
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            const preloader = document.getElementById('preloader');
+            const preloaderText = document.getElementById('preloaderText');
+            
+            if (preloader && preloaderText) {
+                if (savedTheme === 'light') {
+                    preloader.style.background = 'linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #4facfe)';
+                    preloader.style.backgroundSize = '400% 400%';
+                    preloader.style.animation = 'gradientShift 3s ease infinite';
+                    preloaderText.style.color = '#ffffff';
+                    preloaderText.style.textShadow = '0 0 20px rgba(255,255,255,0.8), 0 2px 10px rgba(0,0,0,0.3)';
+                } else {
+                    preloader.style.background = '#0a0e27';
+                    preloaderText.style.color = '#00ff87';
+                    preloaderText.style.textShadow = '0 0 10px rgba(0,255,135,0.5)';
+                }
+            }
+        })();
+    </script>
 
     <!-- Cyber Grid Background -->
     <div class="cyber-grid"></div>
@@ -141,6 +198,71 @@
                 }
             }, 800);
         });
+        
+        // CRITICAL: Apply theme immediately when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            applyThemeToAllElements();
+        });
+        
+        // Also apply after a short delay to catch any late-loading elements
+        setTimeout(function() {
+            applyThemeToAllElements();
+        }, 100);
+        
+        function applyThemeToAllElements() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            const html = document.documentElement;
+            html.setAttribute('data-theme', savedTheme);
+            html.className = 'theme-' + savedTheme;
+            document.body.classList.remove('theme-light', 'theme-dark');
+            document.body.classList.add('theme-' + savedTheme);
+            
+            console.log('Applying theme:', savedTheme);
+            
+            // Apply body styles
+            if (savedTheme === 'dark') {
+                document.body.style.cssText = 'background: #0a0e27 !important; background-color: #0a0e27 !important; color: #00ff87 !important;';
+            } else {
+                document.body.style.cssText = 'background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #4facfe) !important; background-size: 400% 400% !important; animation: gradientShift 15s ease infinite !important; color: #1a1a2e !important;';
+            }
+            
+            // Force update navbar with cssText
+            const navbar = document.querySelector('.navbar-custom');
+            if (navbar) {
+                if (savedTheme === 'dark') {
+                    navbar.style.cssText = 'background: rgba(10, 14, 39, 0.98) !important; background-color: rgba(10, 14, 39, 0.98) !important; border-bottom: 2px solid #00ff87 !important; box-shadow: 0 0 20px rgba(0,255,135,0.3) !important;';
+                    console.log('Navbar set to dark');
+                } else {
+                    navbar.style.cssText = 'background: rgba(255, 255, 255, 0.98) !important; background-color: rgba(255, 255, 255, 0.98) !important; border-bottom: 3px solid rgba(102, 102, 241, 0.5) !important; box-shadow: 0 4px 30px rgba(102,102,241,0.4) !important;';
+                    console.log('Navbar set to light');
+                }
+            }
+            
+            // Force update all cards with cssText
+            const cards = document.querySelectorAll('.feature-card, .calc-card');
+            console.log('Found cards:', cards.length);
+            cards.forEach((card, index) => {
+                if (savedTheme === 'dark') {
+                    card.style.cssText = 'background: rgba(15, 20, 25, 0.95) !important; background-color: rgba(15, 20, 25, 0.95) !important; border: 2px solid rgba(0, 255, 135, 0.3) !important; border-color: rgba(0, 255, 135, 0.3) !important; box-shadow: 0 8px 32px rgba(0,0,0,0.8) !important;';
+                    console.log('Card', index, 'set to dark');
+                } else {
+                    card.style.cssText = 'background: rgba(255, 255, 255, 0.95) !important; background-color: rgba(255, 255, 255, 0.95) !important; border: 2px solid rgba(102, 102, 241, 0.4) !important; border-color: rgba(102, 102, 241, 0.4) !important; box-shadow: 0 8px 32px rgba(102,102,241,0.3) !important;';
+                    console.log('Card', index, 'set to light');
+                }
+            });
+            
+            // Force update all form controls
+            const formControls = document.querySelectorAll('.form-control-custom, .form-select-custom, select, input[type="text"], input[type="number"]');
+            formControls.forEach(control => {
+                if (savedTheme === 'dark') {
+                    control.style.cssText = 'background: rgba(0, 0, 0, 0.7) !important; background-color: rgba(0, 0, 0, 0.7) !important; border: 2px solid rgba(0, 255, 135, 0.4) !important; border-color: rgba(0, 255, 135, 0.4) !important; color: #00ff87 !important;';
+                } else {
+                    control.style.cssText = 'background: rgba(255, 255, 255, 0.95) !important; background-color: rgba(255, 255, 255, 0.95) !important; border: 2px solid rgba(102, 102, 241, 0.4) !important; border-color: rgba(102, 102, 241, 0.4) !important; color: #1a1a2e !important;';
+                }
+            });
+            
+            console.log('Theme applied successfully');
+        }
 
         // Matrix/Cyber rain effect - Works for both themes
         function createCyberRain() {
